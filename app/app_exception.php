@@ -11,3 +11,7 @@ class RecordNotFoundException extends ValidationException
 class ValidationException extends AppException
 {
 }
+
+class NotFoundException extends AppException
+{
+}

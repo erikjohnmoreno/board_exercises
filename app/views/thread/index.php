@@ -8,4 +8,7 @@
 	</li>
 	<?php endforeach ?>
 </ul>
+<br/>
 <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/create')) ?>">Create</a>
+<br/><br/>
+<a class="btn btn-large btn-primary" href="<?php html_encode(url('registration/register'))?>">Register</a>
