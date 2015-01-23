@@ -1,9 +1,9 @@
-<h2><?php eh($thread->title) ?></h2>
+<h2><?php html_encode($thread->title) ?></h2>
 
 <p class="alert alert-success">
 	You succesfully wrote this comment.
 </p>
 
-<a href="<?php eh(url('thread/view',array('thread_id' =>$thread->id))) ?>">
+<a href="<?php html_encode(url('thread/view',array('thread_id' =>$thread->id))) ?>">
 &larr; Back to thread
 </a>

@@ -1,6 +1,6 @@
 <?php
 
-function eh($string)
+function html_encode($string)
 {
     if (!isset($string)) return;
     echo htmlspecialchars($string, ENT_QUOTES);

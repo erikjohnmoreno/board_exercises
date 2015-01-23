@@ -1,4 +1,4 @@
-<h2><?php eh($thread->title) ?></h2>
+<h2><?php html_encode($thread->title) ?></h2>
 
 <?php if ($comment->hasError()): ?>
 <div class="alert alert-block">
@@ -7,21 +7,21 @@
 
 	<?php if (!empty($comment->validation_errors['username']['length'])): ?>
 		<div> <em>Your name</em> must be between
-			<?php eh($comment->validation['username']['length'][0]) ?> and 
-			<?php eh($comment->validation['username']['length'][2]) ?> characters in length.
+			<?php html_encode($comment->validation['username']['length'][0]) ?> and 
+			<?php html_encode($comment->validation['username']['length'][2]) ?> characters in length.
 		</div>
 	<?php endif ?> 
 
 </div>
 <?php endif ?>
 
-<form class="well" method="post" action="<?php eh(url('thread/write')) ?>">
+<form class="well" method="post" action="<?php html_encode(url('thread/write')) ?>">
 <label>Your name</label>
-<input type="text" class="span2" name="username" value="<?php eh(Param::get('username')) ?>">
+<input type="text" class="span2" name="username" value="<?php html_encode(Param::get('username')) ?>">
 <label>Comment</label>
-<textarea name="body"><?php eh(Param::get('body')) ?></textarea>
+<textarea name="body"><?php html_encode(Param::get('body')) ?></textarea>
 <br/>
-<input type="hidden" name="thread_id" value="<?php eh($thread->id) ?>">
+<input type="hidden" name="thread_id" value="<?php html_encode($thread->id) ?>">
 <input type="hidden" name="page_next" value="write_end">
 <button type="submit" class="btn btn-primary">Submit</button>
 
