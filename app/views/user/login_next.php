@@ -11,4 +11,3 @@
 <br/>
 <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/create')) ?>">Create</a>
 <br/><br/>
-

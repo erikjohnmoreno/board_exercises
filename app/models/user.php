@@ -1,8 +1,9 @@
 <?php 
-	//MODEL FOR USER REGISTRATION
+	//MODEL FOR USER Registration and Login
 	class User extends Appmodel
 	{
-		
+		public $login_flag = true;
+
 		public $validation = array(
 				'username' => array(
 					'length' => array(
@@ -16,6 +17,9 @@
 				'password' => array(
 					'length' => array(
 						'validate_between', 8, 16
+						),
+					'duplicate' => array(
+						'check'
 						)
 					)
 				);
@@ -43,6 +47,21 @@
 
 			return empty($rows);		
 			
+		}
+
+		public function login()
+		{
+			$db = DB::conn();
+			$row = $db->row('SELECT username, password FROM user WHERE username = ? AND password = ?', array($this->username, $this->password));
+			
+			if(!$row)
+			{
+				$this->login_flag = false;
+				throw new RecordNotFoundException("Invalid username/password");
+			}
+
+			return $row;
+
 		}
 
 
