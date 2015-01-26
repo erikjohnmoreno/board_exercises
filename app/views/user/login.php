@@ -1,6 +1,8 @@
 
 
-<?php if (!$user->login_flag): ?>
+<?php
+
+ if (!$user->login_flag): ?>
 <div class="alert alert-block">
     <h4 class="alert-heading">Login Failed!</h4>
 </div>

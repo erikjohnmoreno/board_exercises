@@ -20,7 +20,7 @@
 
 			$db = DB::conn();
 
-			$rows = $db->rows('SELECT * FROM thread');
+			$rows = $db->rows('SELECT * FROM thread WHERE id = ?', array($_SESSION['id']));
 
 			foreach ($rows as $row) {
 				$threads[] = new Thread($row);

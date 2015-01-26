@@ -43,10 +43,14 @@
 					break;
 				
 				case 'login_next':
+
 					$user->username = Param::get('username');
 					$user->password = Param::get('password');
 					try {
-						$user->login();
+						$account = $user->login();
+						$_SESSION['id'] = $account['id'];
+
+						
 					} catch (RecordNotFoundException $e) {
 						$page = 'login';
 					}
@@ -59,8 +63,13 @@
 			$this->set(get_defined_vars());
 			$this->render($page);
 			
-			
 		}
+		public function logout()
+		{
+			session_destroy();
+		}
+
+		
 
 		
 	}

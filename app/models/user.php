@@ -52,7 +52,7 @@
 		public function login()
 		{
 			$db = DB::conn();
-			$row = $db->row('SELECT username, password FROM user WHERE username = ? AND password = ?', array($this->username, $this->password));
+			$row = $db->row('SELECT id, username, password FROM user WHERE username = ? AND password = ?', array($this->username, $this->password));
 			
 			if(!$row)
 			{
