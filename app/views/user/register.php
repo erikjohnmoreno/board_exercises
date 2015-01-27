@@ -35,5 +35,6 @@
 <input type="password" class="span2" name="password" value="<?php html_encode(Param::get('password')) ?>">
 <br />
 <input type="hidden" name="page_next" value="register_end">
-<button type="submit" class="btn btn-primary">Submit</button>                
+<button type="submit" class="btn btn-primary">Submit</button>     
+<a href="<?php html_encode(url('user/login'))?>">Go back to login</a>           
 </form>

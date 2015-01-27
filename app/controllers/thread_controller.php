@@ -8,7 +8,13 @@
 		public function index()
 		{
 			//TODO: Get all threads
-			$threads = Thread::getALL();
+			$threads = Thread::getAllThreads();
+			$this->set(get_defined_vars());
+		}
+
+		public function view_user_thread()
+		{
+			$threads = Thread::getAll();
 			$this->set(get_defined_vars());
 		}
 		

@@ -28,6 +28,19 @@
 			return $threads;
 		}
 
+		public static function getAllThreads()
+		{
+			$threads = array();
+			$db = DB::conn();
+
+			$rows = $db->rows('SELECT * FROM thread');
+
+			foreach ($rows as $row) {
+				$threads[] = new Thread($row);
+			}
+			return $threads;
+		}
+
 		public static function get($id)
 		{
 			$db = DB::conn();
@@ -64,6 +77,7 @@
 
 			$db->commit();
 		}
+
 
 	}
  ?>

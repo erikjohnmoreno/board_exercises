@@ -1,7 +1,7 @@
 
+<?php if (isset($_SESSION['id'])): ?>
 
-	
-<h1>All threads</h1>
+<h1>My threads</h1>
 <ul>
 	<?php foreach ($threads as $v):  ?>
 		<li>
@@ -9,12 +9,16 @@
 		</li>
 	<?php endforeach ?>
 </ul>
-
+<?php endif ?>
 
 <br/>
+<a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/create')) ?>">Create</a>
 <br/><br/>
 <a class="btn btn-large btn-primary" href="<?php html_encode(url('user/logout')) ?>">Logout</a>
-<a href="<?php html_encode(url('thread/view_user_thread'))?>"> View My threads</a>
+<a href="<?php html_encode(url('thread/index')) ?>"> See all threads</a>
 
+<?php if (!isset($_SESSION['id'])) {
+		header("Location: user/login");
+} ?>
 
 
