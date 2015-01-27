@@ -11,13 +11,6 @@
     	</div>
     <?php endif ?>
 
-    <?php if (!empty($comment->validation_errors['username']['length'])): ?>
-    	<div><em>Your name</em>must be between
-    	<?php html_encode($comment->validation['username']['length'][1]) ?>and
-    	<?php html_encode($comment->validation['username']['length'][2]) ?> characters in length.
-      	</div>
-    <?php endif ?>
-
       <?php if (!empty($comment->validation_errors['body']['length'])): ?>                 
   		<div><em>Comment</em> must be between
     	 <?php html_encode($comment->validation['body']['length'][1]) ?> and
@@ -32,8 +25,6 @@
 <form class="well" method="post" action="<?php html_encode(url('')) ?>">
 <label>Title</label>
 <input type="text" class="span2" name="title" value="<?php html_encode(Param::get('title')) ?>">
-<label>Your name</label>
-<input type="text" class="span2" name="username" value="<?php html_encode(Param::get('username')) ?>">
 <label>Comment</label>
 <textarea name="body"><?php html_encode(Param::get('body')) ?></textarea>
 <br />

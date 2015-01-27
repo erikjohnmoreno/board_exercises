@@ -4,7 +4,7 @@
 
  if (!$user->login_flag): ?>
 <div class="alert alert-block">
-    <h4 class="alert-heading">Login Failed!</h4>
+    <h4 class="alert-heading">Hey What You doin Playah? Login Failed!</h4>
 </div>
 <?php endif ?>
 

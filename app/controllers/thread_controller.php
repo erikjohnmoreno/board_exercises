@@ -32,7 +32,7 @@
 					break;
 
 				case 'write_end':
-					$comment->username = Param::get('username');
+					//$comment->username = Param::get('username');
 					$comment->body = Param::get('body');
 					try {
 						$thread->write($comment);
@@ -63,7 +63,6 @@
 				
 				case 'create_end':
 					$thread->title = Param::get('title');
-					$comment->username = Param::get('username');
 					$comment->body = Param::get('body');
 					try {
 						$thread->create($comment);

@@ -16,11 +16,11 @@
 
 		public static function getAll()
 		{
-			$thread = array();
+			$threads = array();
 
 			$db = DB::conn();
 
-			$rows = $db->rows('SELECT * FROM thread WHERE id = ?', array($_SESSION['id']));
+			$rows = $db->rows('SELECT * FROM thread WHERE userid = ?', array($_SESSION['id']));
 
 			foreach ($rows as $row) {
 				$threads[] = new Thread($row);
@@ -47,7 +47,7 @@
 
 			$db = DB::conn();
 
-			$rows = $db->rows('SELECT * FROM comment WHERE thread_id = ? ORDER BY created ASC', array($this->id));
+			$rows = $db->rows('SELECT * FROM user INNER JOIN comment ON user.id = comment.userid WHERE comment.thread_id = ? ORDER BY comment.created ASC', array($this->id));
 
 			foreach ($rows as $row) {
 				$comments[] = new Comment($row);
@@ -65,8 +65,8 @@
 
 			$db = DB::conn();
 			$db->query(
-				'INSERT INTO comment SET thread_id = ?, username = ?, body = ?, created = NOW()',
-				array($this->id, $comment->username, $comment->body)
+				'INSERT INTO comment SET thread_id = ?, body = ?, created = NOW(), userid = ?',
+				array($this->id, $comment->body, $_SESSION['id'])
 				);
 
 		}
@@ -82,7 +82,7 @@
 			$db = DB::conn();
 			$db->begin();
 
-			$db->query('INSERT INTO thread SET title = ?, created = NOW()', array($this->title));
+			$db->query('INSERT INTO thread SET title = ?, created = NOW(), userid = ?', array($this->title, $_SESSION['id']));
 
 			$this->id = $db->lastInsertId();
 
