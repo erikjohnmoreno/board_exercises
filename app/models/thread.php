@@ -41,38 +41,12 @@
 			return new self($row);		
 		}
 
-		public function getComments()
-		{
-			$comments = array();
-
-			$db = DB::conn();
-
-			$rows = $db->rows('SELECT * FROM user INNER JOIN comment ON user.id = comment.userid WHERE comment.thread_id = ? ORDER BY comment.created ASC', array($this->id));
-
-			foreach ($rows as $row) {
-				$comments[] = new Comment($row);
-
-			}
-
-			return $comments;
-		}
-
-		public function write(Comment $comment)
-		{
-			if (!$comment->validate()) {
-				throw new ValidationException('invalid comment');
-			}
-
-			$db = DB::conn();
-			$db->query(
-				'INSERT INTO comment SET thread_id = ?, body = ?, created = NOW(), userid = ?',
-				array($this->id, $comment->body, $_SESSION['id'])
-				);
-
-		}
+		
 
 		public function create(Comment $comment)
 		{
+			$instant_comment = new Comment;
+
 			$this->validate();
 			$comment->validate();
 			if ($this->hasError() || $comment->hasError()) {
@@ -86,7 +60,7 @@
 
 			$this->id = $db->lastInsertId();
 
-			$this->write($comment);
+			$instant_comment->write($comment, $this->id);
 
 			$db->commit();
 		}
