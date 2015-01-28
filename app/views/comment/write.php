@@ -19,6 +19,7 @@
 	<input type="hidden" name="thread_id" value="<?php html_encode($thread->id) ?>">
 	<input type="hidden" name="page_next" value="write_end">
 	<button type="submit" class="btn btn-primary">Submit</button>
+	<a href="<?php html_encode(url('thread/index'))?>"> Go back to thread</a>
 
 </form>
 

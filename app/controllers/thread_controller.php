@@ -1,4 +1,5 @@
 <?php 
+
 	/**
 	* 
 	*/
@@ -7,8 +8,13 @@
 		
 		public function index()
 		{
+			$i = 0;
 			//TODO: Get all threads
 			$threads = Thread::getAllThreads();
+			$current = Param::get('page');
+			$pagination = new SimplePagination($current, 2);
+			$divided_page = array_chunk($threads, 2, true);
+			$pagination->checkLastPage($divided_page);
 			$this->set(get_defined_vars());
 		}
 
