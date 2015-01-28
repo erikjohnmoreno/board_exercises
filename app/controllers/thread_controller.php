@@ -5,16 +5,21 @@
 	*/
 	class ThreadController extends AppController
 	{
-		
+		const MAX_ROWS_PER_PAGE = 5;
+
 		public function index()
 		{
-			$i = 0;
-			//TODO: Get all threads
-			$threads = Thread::getAllThreads();
-			$current = Param::get('page');
-			$pagination = new SimplePagination($current, 2);
-			$divided_page = array_chunk($threads, 2, true);
-			$pagination->checkLastPage($divided_page);
+			$number_page = 0;
+			$max_display = 5;
+			$threads = Thread::getAllThreads(); // GET all list of threads from database
+			$current = max(Param::get('page'),SimplePagination::MIN_PAGE_NUM);//get page number specified in view/index
+			$pagination = new SimplePagination($current, self::MAX_ROWS_PER_PAGE);
+			$remaining_threads = array_slice($threads, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
+ 			$pagination->checkLastPage($remaining_threads);
+
+ 			$page_links = createPaginationLinks(count($threads),$current, $pagination->count);
+
+			$threads = array_slice($threads, $pagination->start_index, $pagination->count);
 			$this->set(get_defined_vars());
 		}
 
@@ -53,5 +58,6 @@
 			$this->set(get_defined_vars());
 			$this->render($page);
 		}
+
 	}
  ?>

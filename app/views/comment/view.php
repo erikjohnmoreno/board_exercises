@@ -12,6 +12,7 @@
 
 	<?php endforeach ?>
 
+
 <hr>
 	<form class = "well" method="post" action="<?php html_encode(url('comment/write')) ?>">
 		<!--<label>Your name</label>
