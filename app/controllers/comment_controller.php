@@ -4,13 +4,19 @@
 	*/
 	class CommentController extends AppController
 	{
-		
+		const MAX_COMMENT_PER_PAGE = 5;
 		public function view()
 		{
 			$thread = Thread::get(Param::get('thread_id'));
 			$comment = new Comment;		
 			$comments = $comment->getComments($thread->id);
 
+			$current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
+			$pagination = new SimplePagination($current, self::MAX_COMMENT_PER_PAGE);
+			$remaining_comments = array_slice($comments, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
+			$pagination->checkLastPage($remaining_comments);
+			$page_links = createPaginationLinks(count($comments), $current, $pagination->count,'thread_id='.$thread->id);
+			$comments = array_slice($comments, $pagination->start_index, $pagination->count);
 			$this->set(get_defined_vars());
 		}
 

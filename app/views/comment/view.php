@@ -12,6 +12,18 @@
 
 	<?php endforeach ?>
 
+	<div class="pagination">
+		<?php if ($pagination->current > 1): ?>
+			&nbsp; <a class="btn btn-primary" href="?page=<?php html_encode($pagination->prev)?>&thread_id=<?php html_encode($thread->id)?>">Previous</a> 
+		<?php endif ?>
+
+		<?php echo $page_links ?>
+
+		<?php if(!$pagination->is_last_page): ?>
+			<a class="btn btn-primary" href="?page=<?php html_encode($pagination->next) ?>&thread_id=<?php html_encode($thread->id)?>">Next</a>
+		<?php endif ?>
+	</div>
+
 
 <hr>
 	<form class = "well" method="post" action="<?php html_encode(url('comment/write')) ?>">
