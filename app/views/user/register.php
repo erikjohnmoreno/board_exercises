@@ -11,7 +11,7 @@
       	</div>
     <?php endif ?>
 
-    <?php if (!empty($user->validation_errors['password']['length'])): ?>                 
+    <?php if (!empty($user->validation_errors['password']['length'])): ?>
   		<div><em>Password </em> must be between
     	 <?php html_encode($user->validation['password']['length'][1]) ?> and
     	 <?php html_encode($user->validation['password']['length'][2]) ?> characters in length.
@@ -25,7 +25,7 @@
 
 
 </div>
-                
+
 <?php endif ?>
 
 <form class="well" method="post" action="<?php html_encode(url('')) ?>">
@@ -35,6 +35,6 @@
 <input type="password" class="span2" name="password" value="<?php html_encode(Param::get('password')) ?>">
 <br />
 <input type="hidden" name="page_next" value="register_end">
-<button type="submit" class="btn btn-primary">Submit</button>     
-<a href="<?php html_encode(url('user/login'))?>">Go back to login</a>           
+<button type="submit" class="btn btn-primary">Submit</button>
+<a href="<?php html_encode(url('user/login'))?>">Go back to login</a>
 </form>

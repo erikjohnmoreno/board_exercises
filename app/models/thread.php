@@ -1,83 +1,88 @@
 <?php 
-	/**
-	* 
-	*/
-	class Thread extends AppModel
-	{
-		public $validation = array(
+    /**
+    * 
+    */
+    class Thread extends AppModel
+    {
+        public $validation = array(
+                    'title' => array(
+                        'length' => array(
+                            'validate_between', 1, 30,
+                            ),
+                        ),
+                    );
 
-			'title' => array(
-				'length' => array(
-					'validate_between', 1, 30,
-					),
-				),
-			);
+        //function to get all threads of user currently login 
+        public static function getAll()
+        {
+            $threads = array();
 
+            $db = DB::conn();
 
-		public static function getAll()
-		{
-			$threads = array();
+            $rows = $db->rows('SELECT * FROM thread 
+                               WHERE userid = ?', array($_SESSION['id']));
 
-			$db = DB::conn();
+            foreach ($rows as $row) {
+                $threads[] = new Thread($row);
+            }
+            return $threads;
+        }
 
-			$rows = $db->rows('SELECT * FROM thread WHERE userid = ?', array($_SESSION['id']));
+        //function to get all threads from database
+        public static function getAllThreads()
+        {
+            $threads = array();
+            $db = DB::conn();
 
-			foreach ($rows as $row) {
-				$threads[] = new Thread($row);
-			}
-			return $threads;
-		}
+            $rows = $db->rows('SELECT * FROM thread');
 
-		public static function getAllThreads()
-		{
-			$threads = array();
-			$db = DB::conn();
+            foreach ($rows as $row) {
+                $threads[] = new Thread($row);
+            }
+            return $threads;
+        }
 
-			$rows = $db->rows('SELECT * FROM thread');
+        public static function get($id)
+        {
+            $db = DB::conn();
 
-			foreach ($rows as $row) {
-				$threads[] = new Thread($row);
-			}
-			return $threads;
-		}
+            $row = $db->row('SELECT * FROM thread 
+                             WHERE id = ?', array($id));
 
-		public static function get($id)
-		{
-			$db = DB::conn();
+            if (!$row) {
+                throw new RecordNotFoundException('no record found');
+            }
 
-			$row = $db->row('SELECT * FROM thread WHERE id = ?', array($id));
+            return new self($row);        
+        }
 
-			if (!$row) {
-				throw new RecordNotFoundException('no record found');
-			}
+        
+        //inserting a comment to database;
+        public function create(Comment $comment)
+        {
+            $instant_comment = new Comment();
 
-			return new self($row);		
-		}
+            $this->validate();
+            $comment->validate();
 
-		
+            if ($this->hasError() || $comment->hasError()) {
+                throw new ValidationException('invalid thread or comment');
+            }
+            try {
+                $db = DB::conn();
+                $db->begin();
+                $db->query('INSERT INTO thread 
+                            SET title = ?, created = NOW(), userid = ?',
+                            array($this->title, $_SESSION['id']));
 
-		public function create(Comment $comment)
-		{
-			$instant_comment = new Comment;
+                $this->id = $db->lastInsertId();
+                $instant_comment->write($comment, $this->id);
 
-			$this->validate();
-			$comment->validate();
-			if ($this->hasError() || $comment->hasError()) {
-				throw new ValidationException('invalid thread or comment');
-			}
+                $db->commit();
+            } catch (Exception $e) {
+                $db->rollback();
+            }
+           
+        }
 
-			$db = DB::conn();
-			$db->begin();
-
-			$db->query('INSERT INTO thread SET title = ?, created = NOW(), userid = ?', array($this->title, $_SESSION['id']));
-
-			$this->id = $db->lastInsertId();
-
-			$instant_comment->write($comment, $this->id);
-
-			$db->commit();
-		}
-
-
-	}
- ?>
+    }
