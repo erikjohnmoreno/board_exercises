@@ -4,10 +4,13 @@
     */
     class Thread extends AppModel
     {
+        const MIN_LENGTH_TITLE = 1;
+        const MAX_LENGTH_TITLE = 30;
+
         public $validation = array(
                     'title' => array(
                         'length' => array(
-                            'validate_between', 1, 30,
+                            'validate_between', self::MIN_LENGTH_TITLE, self::MAX_LENGTH_TITLE,
                             ),
                         ),
                     );
@@ -23,7 +26,7 @@
                                WHERE userid = ?', array($session_id));
 
             foreach ($rows as $row) {
-                $threads[] = new Thread($row);
+                $threads[] = new self($row);
             }
             return $threads;
         }
@@ -37,7 +40,7 @@
             $rows = $db->rows('SELECT * FROM thread');
 
             foreach ($rows as $row) {
-                $threads[] = new Thread($row);
+                $threads[] = new self($row);
             }
             return $threads;
         }
@@ -76,7 +79,7 @@
                             array($this->title, $session_id));
 
                 $this->id = $db->lastInsertId();
-                $instant_comment->write($comment, $this->id);
+                $instant_comment->write($comment, $this->id, $session_id);
 
                 $db->commit();
             } catch (Exception $e) {

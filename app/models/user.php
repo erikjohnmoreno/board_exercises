@@ -2,12 +2,16 @@
     //Model for user registration and login
     class User extends Appmodel
     {
+        const MIN_LENGTH = 8;
+        const MAX_LENGTH = 16;
+
+
         public $login_flag = true; //indicator that tells user is currently login
 
         public $validation = array(
                 'username' => array(
                     'length' => array(
-                        'validate_between', 8, 16
+                        'validate_between', self::MIN_LENGTH, self::MAX_LENGTH
                         ),
                     'duplicate' => array(
                         'check'
@@ -16,7 +20,7 @@
 
                 'password' => array(
                     'length' => array(
-                        'validate_between', 8, 16
+                        'validate_between', self::MIN_LENGTH, self::MAX_LENGTH
                         ),
                     'duplicate' => array(
                         'check'

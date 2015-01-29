@@ -5,7 +5,7 @@
     
     <?php foreach ($threads as $v):  ?>
         <li>
-            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><?php html_encode($v->title); html_encode($v->created) ?></a>
+            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><?php html_encode($v->title) ?></a>
         </li>
     <?php endforeach ?>
 </ul>

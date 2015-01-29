@@ -2,16 +2,20 @@
 
  class Comment extends AppModel
  {
+    const MIN_LENGTH = 1;
+    const MAX_LENGTH_USERNAME = 16;
+    const MAX_LENGTH_COMMENT = 200;
+
      public $validation = array(
              'username' => array(
                 'length' => array(
-                     'validate_between',1,16,
+                     'validate_between', self::MIN_LENGTH, self::MAX_LENGTH_USERNAME,
                      ),
                  ),
 
              'body' => array(
                 'length' => array(
-                     'validate_between',1,200,
+                     'validate_between',self::MIN_LENGTH, self::MAX_LENGTH_COMMENT,
                      ),
                  ),
              );
@@ -31,7 +35,7 @@
                                array($threadId));
 
             foreach ($rows as $row) {
-                $comments[] = new Comment($row);
+                $comments[] = new self($row);
 
             }
 
