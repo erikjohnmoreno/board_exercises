@@ -1,11 +1,12 @@
 
 <?php if (isset($_SESSION['id'])): ?>
-
+   
 <h1>My threads</h1>
+<pre><?php ?></pre>
 <ul>
     <?php foreach ($threads as $v):  ?>
         <li>
-            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><?php html_encode($v->title); echo " "; html_encode($v->created) ?></a>
+            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><?php html_encode($v->title) ?></a>
         </li>
     <?php endforeach ?>
 </ul>

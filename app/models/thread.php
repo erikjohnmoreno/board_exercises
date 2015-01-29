@@ -13,14 +13,14 @@
                     );
 
         //function to get all threads of user currently login 
-        public static function getAll()
+        public static function getAll($session_id)
         {
             $threads = array();
 
             $db = DB::conn();
 
             $rows = $db->rows('SELECT * FROM thread 
-                               WHERE userid = ?', array($_SESSION['id']));
+                               WHERE userid = ?', array($session_id));
 
             foreach ($rows as $row) {
                 $threads[] = new Thread($row);
@@ -58,7 +58,7 @@
 
         
         //inserting a comment to database;
-        public function create(Comment $comment)
+        public function create(Comment $comment, $session_id)
         {
             $instant_comment = new Comment();
 
@@ -73,7 +73,7 @@
                 $db->begin();
                 $db->query('INSERT INTO thread 
                             SET title = ?, created = NOW(), userid = ?',
-                            array($this->title, $_SESSION['id']));
+                            array($this->title, $session_id));
 
                 $this->id = $db->lastInsertId();
                 $instant_comment->write($comment, $this->id);
@@ -81,8 +81,7 @@
                 $db->commit();
             } catch (Exception $e) {
                 $db->rollback();
-            }
-           
+            }           
         }
 
     }

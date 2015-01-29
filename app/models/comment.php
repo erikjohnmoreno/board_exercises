@@ -39,7 +39,7 @@
         }
 
         //inserting a comment to a certain thread_id to database
-        public function write(Comment $comment, $threadId)
+        public function write(Comment $comment, $threadId, $session_id)
         {
             $thread = new Thread();
             if (!$comment->validate()) {
@@ -49,7 +49,7 @@
             $db = DB::conn();
             $db->query('INSERT INTO comment 
                         SET thread_id = ?, body = ?, created = NOW(), userid = ?',
-                        array($threadId, $comment->body, $_SESSION['id']));
+                        array($threadId, $comment->body, $session_id));
         }
 
  } 

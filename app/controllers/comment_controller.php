@@ -36,7 +36,7 @@
                 case 'write_end':
                     $comment->body = Param::get('body');
                     try {
-                        $comment->write($comment, $thread->id);
+                        $comment->write($comment, $thread->id, $_SESSION['id']);
                     } catch (ValidationException $e) {
                         $page = 'write';
                     }    
