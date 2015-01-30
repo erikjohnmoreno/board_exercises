@@ -19,8 +19,9 @@
 	<?php endif ?>
 
 	<?php if (!empty($user->validation_errors['username']['duplicate'])): ?>
-		<div><em>Username </em> already exists</div>
+		<div><em>Username/E-mail </em> already exists</div>
 	<?php endif ?>
+
 
 
 
@@ -28,11 +29,13 @@
 
 <?php endif ?>
 
-<form class="well" method="post" action="<?php html_encode(url('')) ?>">
+<form class="well span4" method="post" action="<?php html_encode(url('')) ?>">
 <label>Username</label>
-<input type="text" class="span2" name="username" value="<?php html_encode(Param::get('username')) ?>">
+<input type="text" class="span4" name="username" value="<?php html_encode(Param::get('username')) ?>">
 <label>Password</label>
-<input type="password" class="span2" name="password" value="<?php html_encode(Param::get('password')) ?>">
+<input type="password" class="span4" name="password" value="<?php html_encode(Param::get('password')) ?>">
+<label>E-mail</label>
+<input type="text" class="span4" name="email" value="<?php html_encode(Param::get('email'))?>">
 <br />
 <input type="hidden" name="page_next" value="register_end">
 <button type="submit" class="btn btn-primary">Submit</button>

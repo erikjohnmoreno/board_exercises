@@ -74,9 +74,8 @@
             try {
                 $db = DB::conn();
                 $db->begin();
-                $db->query('INSERT INTO thread 
-                            SET title = ?, created = NOW(), userid = ?',
-                            array($this->title, $session_id));
+                $db->insert('thread', array('title' => $this->title,
+                                            'userid' => $session_id));
 
                 $this->id = $db->lastInsertId();
                 $instant_comment->write($comment, $this->id, $session_id);
@@ -85,6 +84,14 @@
             } catch (Exception $e) {
                 $db->rollback();
             }           
+        }
+
+        public function delete($thread_id)
+        {
+            $db = DB::conn();
+            $db->begin();
+            $db->query('DELETE FROM thread WHERE id = ?',
+                        array($thread_id));
         }
 
     }

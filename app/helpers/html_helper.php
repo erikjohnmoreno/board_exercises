@@ -25,9 +25,9 @@ function createPaginationLinks($total_rows, $current_page, $max_rows, $extra_par
 
     while ($page_counter <= $total_pages) {
         if ($page_counter == $current_page) {
-            $page_links .= "<b>$current_page</b>";
+            $page_links .= "<b><a class='btn btn-default btn-mini disabled'>$current_page</a></b>";
         } else {
-            $page_links .= "<a class='btn btn-primary' href='?page={$page_counter}&{$extra_params}'>{$page_counter}</a>";
+            $page_links .= "<a class='btn btn-primary btn-mini' href='?page={$page_counter}&{$extra_params}'>{$page_counter}</a>";
         }
         $page_counter++;
     }

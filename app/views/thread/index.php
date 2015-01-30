@@ -18,15 +18,14 @@
         <?php echo $page_links ?>
 
         <?php if(!$pagination->is_last_page): ?>
-            <a class="btn btn-primary" href="?page=<?php  html_encode($pagination->next)?>">Next</a>
-        <?php else: ?>
-            
+            <a class="btn btn-primary" href="?page=<?php  html_encode($pagination->next)?>">Next</a>            
         <?php endif ?>    
     </div>
 
 <br/><br/><br/>
+    <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/view_user_thread'))?>"> View My threads</a>
+    <a class="btn btn-large btn-primary" href="<?php html_encode(url('user/update_info'))?>">Update Information</a>
     <a class="btn btn-large btn-primary" href="<?php html_encode(url('user/logout')) ?>">Logout</a>
-    <a href="<?php html_encode(url('thread/view_user_thread'))?>"> View My threads</a>
 
 <?php else: header('Location: user/login') ?>
 <?php endif ?>

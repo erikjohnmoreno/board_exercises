@@ -34,6 +34,7 @@
                                ORDER BY comment.created ASC',
                                array($threadId));
 
+
             foreach ($rows as $row) {
                 $comments[] = new self($row);
 
@@ -49,11 +50,17 @@
             if (!$comment->validate()) {
                 throw new ValidationException('invalid comment');
             }
+            try {
+                $db = DB::conn();
+                $db->insert('comment', array('thread_id' => $threadId,
+                                             'body' => $comment->body,
+                                             'userid' => $session_id));
+                $db->commit();
+            } catch (Exception $e) {
+                $db->rollback();
+            }
+         
 
-            $db = DB::conn();
-            $db->query('INSERT INTO comment 
-                        SET thread_id = ?, body = ?, created = NOW(), userid = ?',
-                        array($threadId, $comment->body, $session_id));
         }
 
  } 

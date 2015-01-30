@@ -24,8 +24,14 @@
                         ),
                     'duplicate' => array(
                         'check'
-                        )
-                    )
+                        ),
+                    ),
+
+                'old_password' => array(
+                    'match_check' => array(
+                        'check_password'
+                        ),
+                    ),
                 );
 
         //Function to add a username and password to registration database
@@ -36,26 +42,38 @@
                 throw new ValidationException('invalid username or password');
 
             }
-            $db = DB::conn();
-            $db->begin();
-
-            $db->query('INSERT INTO user 
-                        SET username = ?, password = ?', 
-                        array($this->username, $this->password));
-        
-            $db->commit();
+            try {
+                  $db = DB::conn();
+                  $db->begin();
+                  $db->insert('user', array('username' => $this->username,
+                                            'password' => $this->password,
+                                            'email' => $this->email));
+            
+                  $db->commit();
+            } catch (Exception $e) {
+                  $db->rollback();
+            }
+          
         }
 
         //function to check if username already exists
         public function check()
         {
             $db = DB::conn();
-            $rows = $db->rows('SELECT username 
-                               FROM user WHERE username = ?',
-                               array($this->username));
+            $rows = $db->rows('SELECT username, email 
+                               FROM user WHERE username = ? OR email = ?',
+                               array($this->username, $this->email));
 
             return empty($rows);
             
+        }
+
+
+        public function check_password()
+        {
+            if ($this->old_password === $_SESSION['password']) {
+                return true;
+            } 
         }
 
         //function for comparing (username password) login and (username/password) database
@@ -75,6 +93,25 @@
             }
 
             return $row;
+        }
+
+        public function updateInfo($session_id)
+        {
+            $this->validate();
+            if ($this->hasError()) {
+                throw new ValidationException('password not match');
+            }
+            try {
+
+                $db = DB::conn();
+                $db->begin();
+                $db->update('user', array('password' => $this->new_password), array('id' => $session_id));
+                $db->commit();
+
+            } catch (Exception $e) {
+                $db->rollback();
+            }
+
         }
 
     }

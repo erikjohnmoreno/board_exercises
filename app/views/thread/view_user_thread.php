@@ -2,7 +2,6 @@
 <?php if (isset($_SESSION['id'])): ?>
    
 <h1>My threads</h1>
-<pre><?php ?></pre>
 <ul>
     <?php foreach ($threads as $v):  ?>
         <li>
@@ -25,10 +24,11 @@
     </div>
 
 <br/>
-<a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/create')) ?>">Create</a>
-<br/><br/>
+
+<a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/index')) ?>"> See all threads</a>
+<a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/create')) ?>">Create Thread</a>
 <a class="btn btn-large btn-primary" href="<?php html_encode(url('user/logout')) ?>">Logout</a>
-<a href="<?php html_encode(url('thread/index')) ?>"> See all threads</a>
+
 
 <?php if (!isset($_SESSION['id'])) {
         header("Location: user/login");

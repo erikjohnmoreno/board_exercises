@@ -29,5 +29,6 @@
 <textarea name="body"><?php html_encode(Param::get('body')) ?></textarea>
 <br />
 <input type="hidden" name="page_next" value="create_end">
-<button type="submit" class="btn btn-primary">Submit</button>                
+<button type="submit" class="btn btn-primary">Submit</button>  
+<a href="<?php html_encode(url('thread/view_user_thread'))?>">Go back</a>              
 </form> 

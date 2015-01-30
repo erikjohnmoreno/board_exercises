@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>DietCake <?php html_encode($title) ?></title>
+    <title>DietCake</title>
 
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -17,7 +17,7 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/">EveryBoardy</a>
+          <a class="brand" href="/">EveryBoardy Put Your Hands in the Air</a>
         </div>
       </div>
     </div>
