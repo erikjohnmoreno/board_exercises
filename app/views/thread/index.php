@@ -5,20 +5,22 @@
     
     <?php foreach ($threads as $v):  ?>
         <li>
-            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><?php html_encode($v->title) ?></a>
+            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><?php html_encode($v->title)?></a>            
         </li>
+        &nbsp;&nbsp;<i><?php getTimeElapsed($v->created) ?></i>
+        <br/><br/>
     <?php endforeach ?>
 </ul>
     <div class="pagination">
         
         <?php if($pagination->current > 1): ?>
-            &nbsp;<a class="btn btn-primary" href="?page=<?php html_encode($pagination->prev) ?>"> Previous</a>
+            &nbsp;<a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->prev) ?>"> Previous</a>
         <?php endif ?>
 
         <?php echo $page_links ?>
 
         <?php if(!$pagination->is_last_page): ?>
-            <a class="btn btn-primary" href="?page=<?php  html_encode($pagination->next)?>">Next</a>            
+            <a class="btn btn-primary btn-mini" href="?page=<?php  html_encode($pagination->next)?>">Next</a>            
         <?php endif ?>    
     </div>
 

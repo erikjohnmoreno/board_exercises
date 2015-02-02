@@ -3,22 +3,22 @@
 <?php foreach ($comments as $k => $v): ?>
     <div class="comment">
         <div class="meta">
-            <?php html_encode($k + 1 ) ?>: <?php html_encode($v->username) ?> <?php html_encode($v->created) ?>
+            <?php html_encode($k + 1 ) ?>: <?php html_encode($v->username) ?> &nbsp;<i><?php getTimeElapsed($v->created) ?></i>
         </div>
-        <div><?php echo readable_text($v->body) ?></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo readable_text($v->body) ?></div><br/>
     </div>
 
     <?php endforeach ?>
 
     <div class="pagination">
         <?php if ($pagination->current > 1): ?>
-            &nbsp; <a class="btn btn-primary" href="?page=<?php html_encode($pagination->prev)?>&thread_id=<?php html_encode($thread->id)?>">Previous</a> 
+            &nbsp; <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->prev)?>&thread_id=<?php html_encode($thread->id)?>">Previous</a> 
         <?php endif ?>
 
         <?php echo $page_links ?>
 
         <?php if (!$pagination->is_last_page): ?>
-            <a class="btn btn-primary" href="?page=<?php html_encode($pagination->next) ?>&thread_id=<?php html_encode($thread->id)?>">Next</a>
+            <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->next) ?>&thread_id=<?php html_encode($thread->id)?>">Next</a>
         <?php endif ?>
     </div>
 
