@@ -22,7 +22,7 @@
             $this->set(get_defined_vars());
         }
 
-        public function my_thread()
+        public function user_thread()
         {    
 
             //pagination        

@@ -23,7 +23,7 @@
     </div>
 
 <br/><br/><br/>
-    <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/my_thread'))?>"> View My threads</a>
+    <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/user_thread'))?>"> View My threads</a>
     <a class="btn btn-large btn-primary" href="<?php html_encode(url('user/update_info'))?>">Update Information</a>
     <a class="btn btn-large btn-primary" href="<?php html_encode(url('user/logout')) ?>">Logout</a>
 
