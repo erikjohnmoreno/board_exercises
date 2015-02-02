@@ -4,7 +4,7 @@
     */
     class CommentController extends AppController
     {
-        const MAX_COMMENT_PER_PAGE = 5;
+        const MAX_COMMENT_PER_PAGE = 8;
 
         public function view()
         {

@@ -4,7 +4,7 @@
     */
     class ThreadController extends AppController
     {
-        const MAX_THREADS_PER_PAGE = 5;
+        const MAX_THREADS_PER_PAGE = 8;
 
         public function index()
         {

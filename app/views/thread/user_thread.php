@@ -2,13 +2,12 @@
 <?php if (isset($_SESSION['id'])): ?>
    
 <h1>My threads</h1>
-<ul>
+<ul class="nav">
     <?php foreach ($threads as $v):  ?>
-        <li>
-            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><?php html_encode($v->title) ?></a>
-        </li>
+        <li class="well">
+            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><b><?php html_encode($v->title) ?></b></a>        
         &nbsp;&nbsp;<i><?php getTimeElapsed($v->created) ?></i>
-        <br/><br/>
+        </li>
     <?php endforeach ?>
 </ul>
 <?php endif ?>

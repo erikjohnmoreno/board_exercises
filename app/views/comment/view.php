@@ -1,11 +1,18 @@
 <h1><?php html_encode($thread->title) ?></h1>
 
 <?php foreach ($comments as $k => $v): ?>
+
     <div class="comment">
         <div class="meta">
-            <?php html_encode($k + 1 ) ?>: <?php html_encode($v->username) ?> &nbsp;<i><?php getTimeElapsed($v->created) ?></i>
+            <?php html_encode($k + 1 ) ?>: <b><?php html_encode($v->username) ?></b> &nbsp;<i><?php getTimeElapsed($v->created) ?></i>
         </div>
-        <div>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo readable_text($v->body) ?></div><br/>
+        <input type="hidden" name="comment_id" value="<?php html_encode($v->id)?>">
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo readable_text($v->body) ?>&nbsp;&nbsp;
+        <?php if ($v->userid == $_SESSION['id']): ?>
+            <a href="<?php html_encode(url('comment/edit',array('comment_id' => $v->id)))?>">edit</a>
+        <?php endif ?>
+        </div>
+        <br/>
     </div>
 
     <?php endforeach ?>
@@ -25,8 +32,6 @@
 
 <hr>
     <form class = "well" method="post" action="<?php html_encode(url('comment/write')) ?>">
-        <!--<label>Your name</label>
-        <input type="text" class="span2" name="username" value="<?php// html_encode(Param::get('username')) ?>">-->
         <label>Comment</label>
         <textarea name="body"><?php html_encode(Param::get('body')) ?></textarea>
         <br/>

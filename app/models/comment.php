@@ -34,7 +34,6 @@
                                ORDER BY comment.created ASC',
                                array($threadId));
 
-
             foreach ($rows as $row) {
                 $comments[] = new self($row);
 
@@ -58,9 +57,19 @@
                 $db->commit();
             } catch (Exception $e) {
                 $db->rollback();
-            }
-         
+            }    
+        }
 
+        public function edit()
+        {
+            try {
+                $db = DB::conn();
+                $db->begin();
+                $db->update('comment', array('body' => $this->body), array('id' => $this->comment_id));
+                $db->commit();
+            } catch (Exception $e) {
+                $db->rollback();
+            }
         }
 
  } 
