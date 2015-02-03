@@ -9,7 +9,7 @@
 <?php endif ?>
 
 <center>
-<form class="well span4" method="post" action="<?php //html_encode(url('thread/index')) ?>">
+<form class="well span4" method="post">
     <div class="container">
         <div class="row">
             <div class="span4">

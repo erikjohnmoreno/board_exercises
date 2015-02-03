@@ -1,7 +1,6 @@
 <h1><?php html_encode($thread->title) ?></h1>
 
 <?php foreach ($comments as $k => $v): ?>
-
     <div class="comment">
         <div class="meta">
             <?php html_encode($k + 1 ) ?>: <b><?php html_encode($v->username) ?></b> &nbsp;<i><?php getTimeElapsed($v->created) ?></i>

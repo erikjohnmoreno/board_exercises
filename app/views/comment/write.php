@@ -2,7 +2,6 @@
 
 <?php if ($comment->hasError()): ?>
 <div class="alert alert-block">
-
 <h4 class="alert-heading">Validation error! </h4>
     <?php if (!empty($comment->validation_errors['body']['length'])): ?>
         <div> <em> Your comment</em> must be between

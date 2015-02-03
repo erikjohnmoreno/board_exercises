@@ -29,20 +29,19 @@
             $page = Param::get('page_next');
 
             switch ($page) {
-
-                case 'write':
-                    break;
-                case 'write_end':
-                    $comment->body = Param::get('body');
-                    try {
-                        $comment->write($comment, $thread->id, $_SESSION['id']);
-                    } catch (ValidationException $e) {
-                        $page = 'write';
-                    }    
-                    break;
-                default:
-                    throw new NotFoundException("{$page} is not found");
-                    break;
+            case 'write':
+                break;
+            case 'write_end':
+                $comment->body = Param::get('body');
+                try {
+                    $comment->write($comment, $thread->id, $_SESSION['id']);
+                } catch (ValidationException $e) {
+                    $page = 'write';
+                }    
+                break;
+            default:
+                throw new NotFoundException("{$page} is not found");
+                break;
              }
 
             $this->set(get_defined_vars());
@@ -55,28 +54,25 @@
             $comment->comment_id = Param::get('comment_id');
             $comments = $comment->getAllComments($comment->comment_id);
             $page = Param::get('page_next', 'edit');
+            
             switch ($page) {
-                case 'edit':
-                    break;
-                
-                case 'edit_end':
-                    
-                    $comment->body = Param::get('body');
-                    try {
-                        $comment->edit();
-                    } catch (ValidationException $e) {
-                        $page = 'edit';
-                    }
-                    break;
+            case 'edit':
+                break;                
+            case 'edit_end':                    
+                $comment->body = Param::get('body');
+                try {
+                    $comment->edit();
+                } catch (ValidationException $e) {
+                    $page = 'edit';
+                }
+                break;
 
-                default:
-                    throw new NotFoundException("{$page} is not found");
-                    break;
+            default:
+                throw new NotFoundException("{$page} is not found");
+                break;
             }
-
             $this->set(get_defined_vars());
             $this->render($page);
-
         }
         
     }

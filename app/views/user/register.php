@@ -29,7 +29,7 @@
 
 <?php endif ?>
 
-<form class="well span4" method="post" action="<?php html_encode(url('')) ?>">
+<form class="well span4" method="post">
 <label>Username</label>
 <input type="text" class="span4" name="username" value="<?php html_encode(Param::get('username')) ?>">
 <label>Password</label>

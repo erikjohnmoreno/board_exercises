@@ -45,23 +45,21 @@
             $page = Param::get('page_next', 'create');
             
             switch ($page) {
-                case 'create':
-                    break;
-                
-                case 'create_end':
-                    $thread->title = Param::get('title');
-                    $comment->body = Param::get('body');
-                    try {
-                        $thread->create($comment, $_SESSION['id']);
+            case 'create':
+                break;               
+            case 'create_end':
+                $thread->title = Param::get('title');
+                $comment->body = Param::get('body');
+                try {
+                    $thread->create($comment, $_SESSION['id']);
                         
-                    } catch (ValidationException $e) {
-                        $page = 'create';
-                    }
-                    break;
-
-                default:
-                    throw new NotFoundException("{$page} is not found");
-                    break;
+                } catch (ValidationException $e) {
+                    $page = 'create';
+                }
+                break;
+            default:
+                throw new NotFoundException("{$page} is not found");
+                break;
             }
 
             $this->set(get_defined_vars());

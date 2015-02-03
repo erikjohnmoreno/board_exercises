@@ -6,7 +6,7 @@
 
 <?php if (!isset($_SESSION['id'])): ?>
 <center>
-<form class="well span4" method="post" action="<?php //html_encode(url('user/login')) ?>">
+<form class="well span4" method="post" action="">
     <div class="container">
         <div class="row">
             <div class="span4">

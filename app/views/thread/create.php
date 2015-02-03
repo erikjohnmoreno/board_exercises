@@ -22,7 +22,7 @@
                 
 <?php endif ?>
 
-<form class="well" method="post" action="<?php html_encode(url('')) ?>">
+<form class="well" method="post">
 <label>Title</label>
 <input type="text" class="span2" name="title" value="<?php html_encode(Param::get('title')) ?>">
 <label>Comment</label>
