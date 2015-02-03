@@ -1,8 +1,9 @@
 
 <?php if (isset($_SESSION['id'])): ?>
    
-<h1>My threads</h1>
+<h1 style="font-size: 55px">My threads</h1>
 <ul class="nav">
+    <a class="offset8" style="font-size: 50px" href=""><?php echo $_SESSION['username']?></a>
     <?php foreach ($threads as $v):  ?>
         <li class="well">
             <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><b><?php html_encode($v->title) ?></b></a>        

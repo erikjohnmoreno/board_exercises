@@ -33,6 +33,21 @@
                         ),
                     ),
                 );
+        
+        //get all user from database
+        public function getAllUser()
+        {  
+            $users = array();
+            $db = DB::conn();
+
+            $rows = $db->rows('SELECT * FROM user');
+
+            foreach ($rows as $row) {
+                $users[] = new self($row);
+            }
+            return $users;
+
+        }
 
         //Function to add a username and password to registration database
         public function register()
@@ -95,6 +110,7 @@
             return $row;
         }
 
+        //update information of user
         public function updateInfo($session_id)
         {
             $this->validate();

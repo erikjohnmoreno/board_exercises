@@ -22,8 +22,9 @@
                     } catch (ValidationException $e) {
                         $page = 'register';
                     }
+                    break;
                 default:
-                    //throw new NotFoundException("{$page} not found");
+                    throw new NotFoundException("{$page} not found");
                     break;
             }
             $this->set(get_defined_vars());

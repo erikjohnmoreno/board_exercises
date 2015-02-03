@@ -42,6 +42,24 @@
             return $comments;
         }
 
+        //get all comments of a certain comment_id
+        public function getAllComments($comment_id)
+        {
+            $comments = array();
+
+            $db = DB::conn();
+
+            $rows = $db->rows('SELECT * FROM comment 
+                               WHERE id = ?',
+                               array($comment_id));
+
+            foreach ($rows as $row) {
+                $comments[] = new self($row);
+            }
+
+            return $comments;
+        }
+
         //inserting a comment to a certain thread_id to database
         public function write(Comment $comment, $threadId, $session_id)
         {
@@ -62,10 +80,11 @@
 
         public function edit()
         {
+            $current_time = date('Y-m-d H:i:s'); 
             try {
                 $db = DB::conn();
                 $db->begin();
-                $db->update('comment', array('body' => $this->body), array('id' => $this->comment_id));
+                $db->update('comment', array('body' => $this->body, 'created' => $current_time), array('id' => $this->comment_id));
                 $db->commit();
             } catch (Exception $e) {
                 $db->rollback();

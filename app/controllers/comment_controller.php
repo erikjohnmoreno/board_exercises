@@ -48,12 +48,13 @@
             $this->set(get_defined_vars());
             $this->render($page);
         }
+        
         public function edit()
         {
             $comment = new Comment();
             $comment->comment_id = Param::get('comment_id');
+            $comments = $comment->getAllComments($comment->comment_id);
             $page = Param::get('page_next', 'edit');
-
             switch ($page) {
                 case 'edit':
                     break;
