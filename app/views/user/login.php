@@ -4,7 +4,6 @@
 </div>
 <?php endif ?>
 
-<?php if (!isset($_SESSION['id'])): ?>
 <center>
 <form class="well span4" method="post" action="">
     <div class="container">
@@ -30,5 +29,3 @@
 </form>
 </center>
 
-<?php else: header("Location: /thread/index")?>
-<?php endif ?>

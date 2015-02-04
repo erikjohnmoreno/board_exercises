@@ -2,15 +2,15 @@
     /**
     * 
     */
-    class UserController extends AppController
-    {
+class UserController extends AppController
+{
         
-        public function register()
-        {
-            $user = new User();
-            $page = Param::get('page_next', 'register');
+    public function register()
+    {
+        $user = new User();
+        $page = Param::get('page_next', 'register');
 
-            switch ($page) {
+        switch ($page) {
             case 'register':
                 break;
             case 'register_end':
@@ -26,51 +26,56 @@
             default:
                 throw new NotFoundException("{$page} not found");
                 break;
-            }
-            $this->set(get_defined_vars());
-            $this->render($page);
         }
+        $this->set(get_defined_vars());
+        $this->render($page);
+    }
 
-        public function login()
-        {
+    public function login()
+    {
+        if (isset($_SESSION['id'])) {
+            header('Location: /thread/index');       
+        } else {
             $user = new User();
             $page = Param::get('page_next', 'login');
 
             switch ($page) {
-            case 'login':
-                break;   
-            case 'login_next':
-                $user->username = Param::get('username');
-                $user->password = Param::get('password');
-                try {
-                    $account = $user->login();
-                    $_SESSION['id'] = $account['id'];
-                    $_SESSION['username'] = $account['username'];
-                    $_SESSION['password'] = $account['password'];
-                } catch (RecordNotFoundException $e) {
-                    $page = 'login';
-                }
-                break;
-            default:
-                throw new NotFoundException("{$page} is not found");
-                break;
+                case 'login':
+                    break;   
+                case 'login_next':
+                    $user->username = Param::get('username');
+                    $user->password = Param::get('password');
+                    try {
+                        $account = $user->login();
+                        $_SESSION['id'] = $account['id'];
+                        $_SESSION['username'] = $account['username'];
+                        $_SESSION['password'] = $account['password'];
+                    } catch (RecordNotFoundException $e) {
+                        $page = 'login';
+                    }
+                    break;
+                default:
+                    throw new NotFoundException("{$page} is not found");
+                    break;
             }
 
             $this->set(get_defined_vars());
-            $this->render($page);            
-        }
+            $this->render($page);     
+        }       
+    }
 
-        public function logout()
-        {
-            session_destroy();
-        }
+    public function logout()
+    {
+        session_destroy();
+        header('Location: /user/login');
+    }
 
-        public function update_info()
-        {
-            $user = new User();
-            $page = Param::get('page_next', 'update_info');
+    public function update_info()
+    {
+        $user = new User();
+        $page = Param::get('page_next', 'update_info');
 
-            switch ($page) {
+        switch ($page) {
             case 'update_info':
                 break;   
             case 'update_info_next':                   
@@ -85,10 +90,10 @@
             default:
                 throw new NotFoundException("{$page} is not found");
                 break;
-            }
+        }
 
-            $this->set(get_defined_vars());
-            $this->render($page);
-        }  
+        $this->set(get_defined_vars());
+        $this->render($page);
+    }  
         
-    }
+}

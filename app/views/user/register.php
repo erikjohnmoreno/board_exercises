@@ -35,7 +35,7 @@
 <label>Password</label>
 <input type="password" class="span4" name="password" value="<?php html_encode(Param::get('password')) ?>">
 <label>E-mail</label>
-<input type="text" class="span4" name="email" value="<?php html_encode(Param::get('email'))?>">
+<input type="email" class="span4" name="email" value="<?php html_encode(Param::get('email'))?>">
 <br />
 <input type="hidden" name="page_next" value="register_end">
 <button type="submit" class="btn btn-primary">Submit</button>

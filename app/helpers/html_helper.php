@@ -61,3 +61,9 @@ function getTimeElapsed($created)
         echo $date_format->format("%y years ago");
     }
 }
+
+function redirect($url)
+{
+    header("Location: {$url}");
+}
+

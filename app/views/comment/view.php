@@ -7,14 +7,15 @@
         </div>
         <input type="hidden" name="comment_id" value="<?php html_encode($v->id)?>">
         <div>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo readable_text($v->body) ?>&nbsp;&nbsp;
-        <?php if ($v->userid == $_SESSION['id']): ?>
+        <?php if ($v->userid == $session_id): ?>
             <a href="<?php html_encode(url('comment/edit',array('comment_id' => $v->id)))?>">edit</a>
+            <a href="<?php html_encode(url('comment/delete',array('comment_id' => $v->id)))?>">delete</a>
+
         <?php endif ?>
         </div>
         <br/>
     </div>
-
-    <?php endforeach ?>
+<?php endforeach ?>
 
     <div class="pagination">
         <?php if ($pagination->current > 1): ?>
@@ -27,8 +28,6 @@
             <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->next) ?>&thread_id=<?php html_encode($thread->id)?>">Next</a>
         <?php endif ?>
     </div>
-
-
 <hr>
     <form class = "well" method="post" action="<?php html_encode(url('comment/write')) ?>">
         <label>Comment</label>
