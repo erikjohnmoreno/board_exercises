@@ -92,7 +92,6 @@ class Thread extends AppModel
             $db = DB::conn();
             $db->begin();
             $db->query('DELETE FROM thread WHERE id = ?', array($thread_id));
-            $comment->delete($this->comment_id);
             $db->commit();
         } catch (Exception $e) {
             $db->rollback();

@@ -4,6 +4,7 @@ class User extends Appmodel
 {
     const MIN_LENGTH = 8;
     const MAX_LENGTH = 16;
+    const MIN_LENGTH_NAME = 1;
 
 
     public $login_flag = true; //indicator that tells user is currently login
@@ -17,16 +18,24 @@ class User extends Appmodel
                     'check'
                     )
                 ),
-
             'password' => array(
                 'length' => array(
                     'validate_between', self::MIN_LENGTH, self::MAX_LENGTH
                     ),
                 'duplicate' => array(
                     'check'
-                    ),
+                    )
                 ),
-
+            'firstname' => array(
+                'length' => array(
+                    'validate_between', self::MIN_LENGTH_NAME, self::MAX_LENGTH
+                    )
+                ),
+            'lastname' => array(
+                'length' => array(
+                    'validate_between', self::MIN_LENGTH_NAME, self::MAX_LENGTH
+                    )
+                ),
             'old_password' => array(
                 'match_check' => array(
                     'check_password'
@@ -94,8 +103,7 @@ class User extends Appmodel
     public function login()
     {
         $db = DB::conn();
-        $row = $db->row('SELECT id, username, password 
-                         FROM user 
+        $row = $db->row('SELECT * FROM user 
                          WHERE BINARY username = ? 
                          AND BINARY password = ?',
                          array($this->username, $this->password));
@@ -125,6 +133,20 @@ class User extends Appmodel
             $db->rollback();
         }   
 
+    }
+
+    public function getAll($id)
+    {
+        $users = array();
+
+        $db = DB::conn();
+        $rows = $db->rows('SELECT * FROM user WHERE id = ?', array($id));
+
+        foreach ($rows as $row) {
+            $users[] = $row;
+        }
+
+        return $users;
     }
 
 }

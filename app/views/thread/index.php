@@ -1,9 +1,9 @@
 <h1 style="font-size: 55px">All threads</h1>
 <ul class="nav">
-    <a class="offset8" style="font-size: 50px" href=""><?php echo $_SESSION['username']?></a>
+    <a class="offset8" style="font-size: 50px" href="<?php html_encode(url('user/user_profile'))?>">View Profile</a>
     <?php foreach ($threads as $v):  ?>
         <li class="well">
-            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><b><?php html_encode($v->title)?></b></a>                   
+            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><b><?php html_encode($v->title)?></b></a>
             &nbsp;&nbsp;<i><?php getTimeElapsed($v->created) ?></i>
             <?php if ($v->userid == $session_id): ?>
                 <a class="offset9" href="<?php html_encode(url('thread/delete', array('thread_id' =>$v->id)))?>">delete this thread</a>
@@ -27,7 +27,7 @@
 
 <br/><br/><br/>
     <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/user_thread'))?>"> View My threads</a>
-    <a class="btn btn-large btn-primary" href="<?php html_encode(url('user/update_info'))?>">Update Information</a>
+    <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/create')) ?>">Create Thread</a>
     <a class="btn btn-large btn-default" href="<?php html_encode(url('user/logout')) ?>">Logout</a>
 
 

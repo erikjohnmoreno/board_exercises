@@ -23,6 +23,7 @@ class ThreadController extends AppController
 
     public function user_thread()
     {            
+        $session_id = $_SESSION['id'];
         $threads = Thread::getAll($_SESSION['id']); // get all list of threads from current user login database
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);//get page number specified in view/view_user_thread
         $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);
@@ -46,10 +47,11 @@ class ThreadController extends AppController
             case 'create':
                 break;               
                 case 'create_end':
-                $thread->title = Param::get('title');
-                $comment->body = Param::get('body');
+                $thread->title = trim(Param::get('title'));
+                $comment->body = trim(Param::get('body'));
                 try {
-                    $thread->create($comment, $_SESSION['id']);                    
+                    $thread->create($comment, $_SESSION['id']);  
+                    redirect('/thread/index');                  
                 } catch (ValidationException $e) {
                     $page = 'create';
                 }

@@ -10,6 +10,7 @@ class CommentController extends AppController
     {  
         $session_id = $_SESSION['id'];
         $thread = Thread::get(Param::get('thread_id'));
+        $_SESSION['thread_id'] = $thread->id;
         $comment = new Comment();        
         $comments = $comment->getComments($thread->id);
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
@@ -32,7 +33,7 @@ class CommentController extends AppController
             case 'write':
                 break;
             case 'write_end':
-                $comment->body = Param::get('body');
+                $comment->body = trim(Param::get('body'));
                 try {
                     $comment->write($comment, $thread->id, $_SESSION['id']);
                 } catch (ValidationException $e) {
@@ -62,6 +63,7 @@ class CommentController extends AppController
                 $comment->body = Param::get('body');
                 try {
                     $comment->edit();
+                    redirect("/comment/view?thread_id={$_SESSION['thread_id']}");
                 } catch (ValidationException $e) {
                     $page = 'edit';
                 }

@@ -5,7 +5,7 @@
     <h4 class="alert-heading">Validation error!</h4>
 
     <?php if (!empty($thread->validation_errors['title']['length'])): ?>
-        <div><em>Title</em>must be between
+        <div><em>Title</em> must be between
         <?php html_encode($thread->validation['title']['length'][1]) ?> and
          <?php html_encode($thread->validation['title']['length'][2]) ?> characters in length.
         </div>

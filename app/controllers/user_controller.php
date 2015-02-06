@@ -14,9 +14,11 @@ class UserController extends AppController
             case 'register':
                 break;
             case 'register_end':
-                $user->username = Param::get('username');
-                $user->password = Param::get('password');
-                $user->email = Param::get('email');
+                $user->username = trim(Param::get('username'));
+                $user->password = trim(Param::get('password'));
+                $user->firstname = trim(Param::get('firstname'));
+                $user->lastname = trim(Param::get('lastname'));
+                $user->email = trim(Param::get('email'));
                 try {
                     $user->register();
                 } catch (ValidationException $e) {
@@ -50,6 +52,8 @@ class UserController extends AppController
                         $_SESSION['id'] = $account['id'];
                         $_SESSION['username'] = $account['username'];
                         $_SESSION['password'] = $account['password'];
+                        $_SESSION['firstname'] = $account['firstname'];
+                        redirect('/thread/index');
                     } catch (RecordNotFoundException $e) {
                         $page = 'login';
                     }
@@ -94,6 +98,15 @@ class UserController extends AppController
 
         $this->set(get_defined_vars());
         $this->render($page);
-    }  
+    }
+
+    public function user_profile()
+    {
+        $user = new User();
+
+        $users = $user->getAll($_SESSION['id']);
+
+        $this->set(get_defined_vars());
+    }
         
 }
