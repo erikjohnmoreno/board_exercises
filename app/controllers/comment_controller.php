@@ -13,6 +13,7 @@ class CommentController extends AppController
         $_SESSION['thread_id'] = $thread->id;
         $comment = new Comment();        
         $comments = $comment->getComments($thread->id);
+        $_SESSION['last_page'] = count(array_chunk($comments, self::MAX_COMMENT_PER_PAGE));
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
         $pagination = new SimplePagination($current, self::MAX_COMMENT_PER_PAGE);
         $remaining_comments = array_slice($comments, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
@@ -36,6 +37,8 @@ class CommentController extends AppController
                 $comment->body = trim(Param::get('body'));
                 try {
                     $comment->write($comment, $thread->id, $_SESSION['id']);
+                    echo "$current_page";
+                    redirect("/comment/view?page={$_SESSION['last_page']}&thread_id={$_SESSION['thread_id']}");
                 } catch (ValidationException $e) {
                     $page = 'write';
                 }    

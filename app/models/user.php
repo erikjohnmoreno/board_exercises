@@ -149,5 +149,23 @@ class User extends Appmodel
         return $users;
     }
 
+    public function updateUserProfile($session_id)
+    {
+        $this->validate();
+        if ($this->hasError()) {
+            throw new ValidationException('invalid firstname/lastname');
+        }
+        try {
+            $db = DB::conn();
+            $db->begin();
+            $db->update('user', array('firstname' => $this->firstname, 
+                                      'lastname' => $this->lastname), 
+                                array('id' => $session_id));
+            $db->commit();
+        } catch (Exception $e) {
+            $db->rollback();
+        }
+    }
+
 }
  

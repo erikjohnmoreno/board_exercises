@@ -14,7 +14,7 @@
         <div class="row">
             <div class="span4">
                 <div>
-                <h4>Update Information</h4>
+                <h4>Change Password</h4>
                 <input class="span4" type="password" name="old_password" class="form-control input-sm chat-input" placeholder="old password" />
                 <input class="span4" type="password" id="userPassword" name="new_password" class="form-control input-sm chat-input" placeholder="new password" />
                 <input type="hidden" name="page_next" value="update_info_next">

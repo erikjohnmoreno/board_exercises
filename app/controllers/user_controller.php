@@ -103,10 +103,33 @@ class UserController extends AppController
     public function user_profile()
     {
         $user = new User();
-
         $users = $user->getAll($_SESSION['id']);
-
         $this->set(get_defined_vars());
+    }
+
+    public function update_user_profile()
+    {
+        $user = new User();
+        $page = Param::get('page_next','update_user_profile');
+
+        switch ($page) {
+            case 'update_user_profile':
+                break;   
+            case 'update_info_next':                   
+                $user->firstname = trim(Param::get('firstname'));
+                $user->lastname = trim(Param::get('lastname'));
+                try {                         
+                    $user->updateUserProfile($_SESSION['id']); 
+                } catch (ValidationException $e) {
+                    $page = 'update_user_profile';
+                }
+                break;
+            default:
+                throw new NotFoundException("{$page} is not found");
+                break;
+        }
+        $this->set(get_defined_vars());
+        $this->render($page);
     }
         
 }

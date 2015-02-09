@@ -20,6 +20,7 @@ class SimplePagination
 		$this->prev = max($current - self::MIN_PAGE_NUM, self::MIN_INDEX_VAL);
 		$this->next = $current + self::PAGES_TO_ADVANCE;
 		$this->start_index = max($this->prev, self::MIN_INDEX_VAL) * $count;
+
 	}
 		
 	public function checkLastPage(array &$items)
