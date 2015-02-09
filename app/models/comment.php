@@ -140,17 +140,21 @@
         }
     }
 
-    public function getLikeCountByCommentId($comment_id)
+
+    public function getLikeCount()
     {
-        $comment = array();
+        $like_count = array();
+
         $db= DB::conn();
         $rows= $db->rows('SELECT comment_id, count(user_id) as liked FROM liked 
                            WHERE comment_id = ?', array($comment_id));
 
-        foreach ($rows as $k) {
-            $comment[] = $k ;
+        foreach ($rows as $row) {
+            $like_count[] = new self($row);
         }
-        return $comment;
+        
+        return $like_count;
+
     }
     
  } 
