@@ -3,13 +3,13 @@
 <?php foreach ($comments as $k => $v): ?>
     <div class="comment">
         <div class="meta">
-            <?php html_encode($k + 1 ) ?>: <b><?php html_encode($v->username) ?></b> &nbsp;<i><?php getTimeElapsed($v->created) ?></i>
+            <b><?php html_encode($v->username) ?></b> &nbsp;<i><?php getTimeElapsed($v->created) ?></i>
         </div>
         <input type="hidden" name="comment_id" value="<?php html_encode($v->id)?>">
         <div>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo readable_text($v->body) ?>&nbsp;&nbsp;
         <?php if ($v->userid == $session_id): ?>
             <a href="<?php html_encode(url('comment/edit',array('comment_id' => $v->id)))?>">edit</a>
-            <a href="<?php html_encode(url('comment/delete',array('comment_id' => $v->id)))?>">delete</a>
+            <a href="<?php html_encode(url('comment/delete',array('comment_id' => $v->id)))?>" onclick="return confirm('Are you sure you want to delete?')">delete</a>
 
         <?php endif ?>
         </div>

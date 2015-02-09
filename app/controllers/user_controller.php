@@ -86,7 +86,8 @@ class UserController extends AppController
                 $user->new_password = Param::get('new_password');
                 $user->old_password = Param::get('old_password');
                 try {                         
-                    $user->updateInfo($_SESSION['id']); 
+                    $user->updateInfo($_SESSION['id']);
+                    redirect('/user/user_profile');
                 } catch (ValidationException $e) {
                     $page = 'update_info';
                 }

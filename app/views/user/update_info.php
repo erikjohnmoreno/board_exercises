@@ -18,7 +18,7 @@
                 <input class="span4" type="password" name="old_password" class="form-control input-sm chat-input" placeholder="old password" />
                 <input class="span4" type="password" id="userPassword" name="new_password" class="form-control input-sm chat-input" placeholder="new password" />
                 <input type="hidden" name="page_next" value="update_info_next">
-                <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-block">
+                <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-block" onclick="return confirm('Are you sure you want to change your password?')">
                 <a href="<?php html_encode(url('user/user_profile'))?>"> back</a>
                 </div>
             
