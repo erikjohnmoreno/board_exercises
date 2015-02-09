@@ -126,18 +126,18 @@
         }
     }
 
-    public function getCommentCount()
+    public function getLikeCount()
     {
-        $comment_count = array();
+        $like_count = array();
         $db= DB::conn();
         $rows = $db->rows('SELECT comment_id, count(user_id) FROM liked 
                            GROUP BY comment_id');
 
         foreach ($rows as $row) {
-            $comment_count[] = new self($row);
+            $like_count[] = new self($row);
         }
 
-        return $comment_count;
+        return $like_count;
     }
     
  } 
