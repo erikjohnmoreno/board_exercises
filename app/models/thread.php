@@ -98,4 +98,24 @@ class Thread extends AppModel
         }
     }
 
+    public function getCommentCount()
+    {
+        return comment::getByThread();
+    }
+
+    public function getAllThreadByComment()
+    {
+        $comment_count = array();
+        $db = DB::conn();
+        $rows = $db->rows('SELECT *, t.title, c.thread_id, count(c.body) as comment_count FROM thread t, comment c
+                           WHERE c.thread_id = t.id 
+                           GROUP BY c.thread_id 
+                           ORDER BY count(c.body) DESC');
+        foreach ($rows as $counted) {
+            $comment_count[] = new self($counted);
+        }
+        return $comment_count;
+    }
+
+
 }

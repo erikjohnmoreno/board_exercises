@@ -21,8 +21,6 @@ class CommentController extends AppController
         $page_links = createPaginationLinks(count($comments), $current, $pagination->count,'thread_id='.$thread->id);
         $comments = array_slice($comments, $pagination->start_index, $pagination->count);
 
-        
-
 
         $this->set(get_defined_vars());
     }

@@ -62,6 +62,19 @@
 
         return $comments;
     }
+    //get comment number of comments in each thread
+    public static function getByThread()
+    {
+        $num_comments = array();
+        $db = DB::conn();
+        $rows = $db->rows('SELECT thread_id, count(body) as comment_count FROM comment GROUP BY thread_id');
+        
+        foreach ($rows as $row) {
+            $num_comments[] = new self($row);
+        }
+
+        return $num_comments;
+    }
 
     //inserting a comment to a certain thread_id to database
     public function write(Comment $comment, $thread_id, $session_id)
@@ -112,6 +125,7 @@
             $db->rollback();
         }
     }
+
                     //comment id of the comment   //user that liked the comment
     public function likeComment($user_id)
     {
@@ -126,18 +140,17 @@
         }
     }
 
-    public function getCommentCount()
+    public function getLikeCountByCommentId($comment_id)
     {
-        $comment_count = array();
+        $comment = array();
         $db= DB::conn();
-        $rows = $db->rows('SELECT comment_id, count(user_id) FROM liked 
-                           GROUP BY comment_id');
+        $rows= $db->rows('SELECT comment_id, count(user_id) as liked FROM liked 
+                           WHERE comment_id = ?', array($comment_id));
 
-        foreach ($rows as $row) {
-            $comment_count[] = new self($row);
+        foreach ($rows as $k) {
+            $comment[] = $k ;
         }
-
-        return $comment_count;
+        return $comment;
     }
     
  } 

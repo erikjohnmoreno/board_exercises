@@ -1,5 +1,4 @@
 <h1><?php html_encode($thread->title) ?></h1>
-
 <?php foreach ($comments as $k => $v): ?>
     <div class="comment">
         <div class="meta">

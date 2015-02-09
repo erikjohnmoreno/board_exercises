@@ -78,4 +78,17 @@ class ThreadController extends AppController
         $this->render($page);
     }
 
+    public function top_threads()
+    {
+        $thread = new Thread();
+        $comment_count = $thread->getAllThreadByComment();
+        $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
+        $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);
+        $remaining_threads = array_slice($comment_count, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
+        $pagination->checkLastPage($remaining_threads);
+        $page_links = createPaginationLinks(count($comment_count), $current, $pagination->count);
+        $comment_count = array_slice($comment_count, $pagination->start_index, $pagination->count);
+        $this->set(get_defined_vars());
+    }
+
 }
