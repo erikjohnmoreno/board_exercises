@@ -86,10 +86,8 @@ class CommentController extends AppController
         $comment->comment_id = Param::get('comment_id');
         $page = Param::get('page_next');
 
-        //if ($page == 'delete_end') {
         $comment->delete($comment->comment_id);
-        redirect("/comment/view?thread_id={$_SESSION['thread_id']}");
-        //}
+        redirect("/comment/view?thread_id={$_SESSION['thread_id']}");       
 
         $this->set(get_defined_vars()); 
         $this->render($page);

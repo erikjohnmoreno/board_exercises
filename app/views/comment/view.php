@@ -9,7 +9,7 @@
         <div>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo readable_text($v->body) ?>&nbsp;&nbsp;
         <?php if ($v->userid == $session_id): ?>
             <a href="<?php html_encode(url('comment/edit',array('comment_id' => $v->id)))?>">edit</a>
-            <a href="<?php html_encode(url('comment/delete',array('comment_id' => $v->id)))?>" onclick="return confirm('Are you sure you want to delete?')">delete</a>
+            <a href="<?php html_encode(url('comment/delete',array('comment_id' => $v->id)))?>" onclick="return confirm('Are you sure you want to delete this comment?')">delete</a>
 
         <?php endif ?>
         </div>
