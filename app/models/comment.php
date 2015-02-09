@@ -112,10 +112,32 @@
             $db->rollback();
         }
     }
-
-    public function likeComment()
+                    //comment id of the comment   //user that liked the comment
+    public function likeComment($user_id)
     {
+        try {
+            $db = DB::conn();
+            $db->begin();
+            $db->insert('liked', array('comment_id' => $this->comment_id,
+                                       'user_id' => $user_id));
+            $db->commit();
+        } catch (Exception $e) {
+            $db->rollback();        
+        }
+    }
 
+    public function getCommentCount()
+    {
+        $comment_count = array();
+        $db= DB::conn();
+        $rows = $db->rows('SELECT comment_id, count(user_id) FROM liked 
+                           GROUP BY comment_id');
+
+        foreach ($rows as $row) {
+            $comment_count[] = new self($row);
+        }
+
+        return $comment_count;
     }
     
  } 

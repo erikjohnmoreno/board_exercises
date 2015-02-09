@@ -13,13 +13,16 @@ class CommentController extends AppController
         $_SESSION['thread_id'] = $thread->id;
         $comment = new Comment();        
         $comments = $comment->getComments($thread->id);
-        $_SESSION['last_page'] = count(array_chunk($comments, self::MAX_COMMENT_PER_PAGE));
+        $_SESSION['last_page'] = count(array_chunk($comments, self::MAX_COMMENT_PER_PAGE));//getting the last page
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
         $pagination = new SimplePagination($current, self::MAX_COMMENT_PER_PAGE);
         $remaining_comments = array_slice($comments, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_comments);
         $page_links = createPaginationLinks(count($comments), $current, $pagination->count,'thread_id='.$thread->id);
         $comments = array_slice($comments, $pagination->start_index, $pagination->count);
+
+        
+
 
         $this->set(get_defined_vars());
     }
@@ -92,6 +95,14 @@ class CommentController extends AppController
         $this->set(get_defined_vars()); 
         $this->render($page);
 
+    }
+
+    public function like_comment()
+    {
+        $comment = new Comment();
+        $comment->comment_id = Param::get('comment_id');
+        $comment->likeComment($_SESSION['id']);
+        redirect("/comment/view?page={$_SESSION['last_page']}&thread_id={$_SESSION['thread_id']}");
     }
         
 }
