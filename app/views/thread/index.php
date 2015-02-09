@@ -6,7 +6,7 @@
             <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><b><?php html_encode($v->title)?></b></a>
             &nbsp;&nbsp;<i><?php getTimeElapsed($v->created) ?></i>
             <?php if ($v->userid == $session_id): ?>
-                <a class="offset9" href="<?php html_encode(url('thread/delete', array('thread_id' =>$v->id)))?>">delete this thread</a>
+                <a class="offset9" href="<?php html_encode(url('thread/delete', array('thread_id' =>$v->id)))?>" onclick="return confirm('Are you sure you want to delete this thread?')" >delete this thread</a>
             <?php endif ?>
             
         </li>

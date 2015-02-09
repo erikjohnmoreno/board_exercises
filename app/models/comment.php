@@ -111,8 +111,11 @@
         } catch (Exception $e) {
             $db->rollback();
         }
-        
-
     }
 
+    public function likeComment()
+    {
+
+    }
+    
  } 

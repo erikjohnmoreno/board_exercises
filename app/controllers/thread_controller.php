@@ -71,9 +71,10 @@ class ThreadController extends AppController
         $thread_id = Param::get('thread_id');
         $page = Param::get('page_next');
 
-        if ($page == 'delete_end') {
+        //if ($page == 'delete_end') {
             $thread->delete($thread_id);
-        }
+            redirect('/thread/index');
+        //}
 
         $this->set(get_defined_vars());
         $this->render($page);
