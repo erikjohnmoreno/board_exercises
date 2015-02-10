@@ -17,9 +17,7 @@
         <?php if($pagination->current > 1): ?>
             &nbsp;<a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->prev) ?>"> Previous</a>
         <?php endif ?>
-
         <?php echo $page_links ?>
-
         <?php if(!$pagination->is_last_page): ?>
             <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->next)?>">Next</a>            
         <?php endif ?>    

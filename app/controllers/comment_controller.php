@@ -64,7 +64,7 @@ class CommentController extends AppController
             case 'edit':
                 break;                
             case 'edit_end':                    
-                $comment->body = Param::get('body');
+                $comment->body = trim(Param::get('body'));
                 try {
                     $comment->edit();
                     redirect("/comment/view?thread_id={$_SESSION['thread_id']}");
@@ -118,6 +118,13 @@ class CommentController extends AppController
     {
         $comment = new Comment();
         $comments = $comment->getLikeCount();
+        $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
+        $pagination = new SimplePagination($current, self::MAX_COMMENT_PER_PAGE);
+        $remaining_comments = array_slice($comments, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
+        $pagination->checkLastPage($remaining_comments);
+
+        $page_links = createPaginationLinks(count($comments), $current, $pagination->count);
+        $comments = array_slice($comments, $pagination->start_index, $pagination->count);
 
         $this->set(get_defined_vars());
 

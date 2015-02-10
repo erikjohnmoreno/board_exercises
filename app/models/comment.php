@@ -6,7 +6,6 @@
     const MAX_LENGTH_USERNAME = 16;
     const MAX_LENGTH_COMMENT = 200;
 
-
      public $validation = array(
              'username' => array(
                 'length' => array(
@@ -140,6 +139,7 @@
                                        'user_id' => $user_id));
 
             $db->query('UPDATE comment SET likes = likes + 1 WHERE id = :id', array('id' => $this->comment_id));
+
             }
                        
             $db->commit();
@@ -161,6 +161,7 @@
                             AND user_id = ?', array($this->comment_id, $user_id));
 
                 $db->query('UPDATE comment SET likes = likes - 1 WHERE id = :id', array('id' => $this->comment_id));
+
             }
             $db->commit();
         } catch (Exception $e) {

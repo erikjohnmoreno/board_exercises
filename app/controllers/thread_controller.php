@@ -16,7 +16,7 @@ class ThreadController extends AppController
         $remaining_threads = array_slice($threads, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_threads);
 
-        $page_links = createPaginationLinks(count($threads),$current, $pagination->count);
+        $page_links = createPaginationLinks(count($threads), $current, $pagination->count);
         $threads = array_slice($threads, $pagination->start_index, $pagination->count);
 
         $this->set(get_defined_vars());
