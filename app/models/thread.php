@@ -19,9 +19,8 @@ class Thread extends AppModel
     public static function getAll($session_id)
     {
         $threads = array();
-
         $db = DB::conn();
-
+        
         $rows = $db->rows('SELECT * FROM thread 
                            WHERE userid = ?', array($session_id));
 
@@ -74,6 +73,7 @@ class Thread extends AppModel
             $db = DB::conn();
             $db->begin();
             $db->insert('thread', array('title' => $this->title,
+                                        'created' => date('Y-m-d H:i:s'),
                                         'userid' => $session_id));
 
             $this->id = $db->lastInsertId();

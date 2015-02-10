@@ -10,12 +10,12 @@ class ThreadController extends AppController
     {
         $session_id = $_SESSION['id'];
         $session_firstname = $_SESSION['firstname'];
+
         $threads = Thread::getAllThreads(); // GET all list of threads from database
         $current = max(Param::get('page'),SimplePagination::MIN_PAGE_NUM);//get page number specified in view/index
         $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);     
         $remaining_threads = array_slice($threads, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_threads);
-
         $page_links = createPaginationLinks(count($threads), $current, $pagination->count);
         $threads = array_slice($threads, $pagination->start_index, $pagination->count);
 
@@ -26,13 +26,12 @@ class ThreadController extends AppController
     {            
         $session_id = $_SESSION['id'];
         $session_firstname = $_SESSION['firstname'];
+
         $threads = Thread::getAll($_SESSION['id']); // get all list of threads from current user login database
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);//get page number specified in view/view_user_thread
         $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);
-
         $remaining_threads = array_slice($threads, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_threads);
-
         $page_links = createPaginationLinks(count($threads), $current, $pagination->count);
         $threads = array_slice($threads, $pagination->start_index, $pagination->count);
 

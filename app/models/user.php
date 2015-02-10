@@ -60,6 +60,7 @@ class User extends Appmodel
     //Function to add a username and password to registration database
     public function register()
     {
+        $current_time = date('Y-m-d H:i:s');
         $this->validate();
         if ($this->hasError()) {
             throw new ValidationException('invalid username or password');
@@ -69,6 +70,7 @@ class User extends Appmodel
             $db->begin();
             $db->insert('user', array('username' => $this->username,
                                       'password' => $this->password,
+                                      'created' => $current_time,
                                       'firstname' => $this->firstname,
                                       'lastname' => $this->lastname,
                                       'email' => $this->email));

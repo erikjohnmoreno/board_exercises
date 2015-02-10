@@ -3,7 +3,7 @@
     <h4 class="alert-heading">Hey What You doin Playah? Login Failed!</h4>
 </div>
 <?php endif ?>
-
+<body style="background:url('/bootstrap/img/relax.jpg');" >
 <center>
 <form class="well span4" method="post" action="">
 
@@ -28,5 +28,6 @@
     </div>
 </form>
 </center>
+</body>
 
 

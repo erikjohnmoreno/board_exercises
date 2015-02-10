@@ -10,7 +10,6 @@ class CommentController extends AppController
     {  
         $session_id = $_SESSION['id'];
         $thread = Thread::get(Param::get('thread_id'));
-        $_SESSION['thread_id'] = $thread->id;
         $comment = new Comment();       
         $comments = $comment->getComments($thread->id);
         $_SESSION['last_page'] = count(array_chunk($comments, self::MAX_COMMENT_PER_PAGE));//getting the last page
@@ -20,6 +19,7 @@ class CommentController extends AppController
         $pagination->checkLastPage($remaining_comments);
         $page_links = createPaginationLinks(count($comments), $current, $pagination->count,'thread_id='.$thread->id);
         $comments = array_slice($comments, $pagination->start_index, $pagination->count);
+        $_SESSION['thread_id'] = $thread->id;
         $_SESSION['current_page'] = $current;
 
         $this->set(get_defined_vars());
