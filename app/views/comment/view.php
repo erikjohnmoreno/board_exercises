@@ -1,17 +1,20 @@
 <h1><?php html_encode($thread->title) ?></h1>
 
-<?php foreach ($comment_list as $key => $value): ?>
-    <?php echo $value->liked ?>
-<?php endforeach ?>    
+<form class="span4">
     <?php foreach ($comments as $k => $v): ?>
         <div class="comment">
             <div class="meta">
-                <b><?php html_encode($v->username) ?></b> likes &nbsp;<i><?php getTimeElapsed($v->created) ?></i>
+                <u style="font-size: 16px"><?php html_encode($v->firstname) ?></u>&nbsp;<i>post a comment <?php getTimeElapsed($v->created) ?></i>
             </div>
             <input type="hidden" name="comment_id" value="<?php html_encode($v->id)?>">
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo readable_text($v->body) ?>&nbsp;&nbsp;
-            <a href="<?php html_encode(url('comment/like_comment', array('comment_id' => $v->id)))?>">like</a>           
+            <div style="font-size: 12px">&nbsp;&nbsp;&nbsp;&nbsp;<b style="font-size: 14px"><?php echo readable_text($v->body) ?></b> <i><?php if ($v->likes > 0) echo $v->likes ." user liked this comment"?></i> <br/>&nbsp;&nbsp;&nbsp;
             
+            
+            <a href="<?php html_encode(url('comment/like_comment', array('comment_id' => $v->id)))?>">like</a>
+            
+            <a href="<?php html_encode(url('comment/unlike_comment', array('comment_id' => $v->id)))?>">unlike</a>
+               
+                         
             <?php if ($v->userid == $session_id): ?>
                 <a href="<?php html_encode(url('comment/edit',array('comment_id' => $v->id)))?>">edit</a>
                 <a href="<?php html_encode(url('comment/delete',array('comment_id' => $v->id)))?>" onclick="return confirm('Are you sure you want to delete this comment?')">delete</a>
@@ -20,8 +23,9 @@
             <br/>
         </div>
     <?php endforeach ?>
+</form>
 
-    <div class="pagination">
+    <div class="pagination span12">
         <?php if ($pagination->current > 1): ?>
             &nbsp; <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->prev)?>&thread_id=<?php html_encode($thread->id)?>">Previous</a> 
         <?php endif ?>
@@ -31,7 +35,7 @@
         <?php endif ?>
     </div>
 <hr>
-    <form class = "well" method="post" action="<?php html_encode(url('comment/write')) ?>">
+    <form class = "well span12" method="post" action="<?php html_encode(url('comment/write')) ?>">
         <label>Comment</label>
         <textarea name="body"><?php html_encode(Param::get('body')) ?></textarea>
         <br/>

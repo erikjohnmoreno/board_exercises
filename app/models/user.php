@@ -69,6 +69,8 @@ class User extends Appmodel
             $db->begin();
             $db->insert('user', array('username' => $this->username,
                                       'password' => $this->password,
+                                      'firstname' => $this->firstname,
+                                      'lastname' => $this->lastname,
                                       'email' => $this->email));
             
             $db->commit();

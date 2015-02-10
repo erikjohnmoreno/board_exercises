@@ -1,7 +1,7 @@
 
 <h1 style="font-size: 55px">All threads</h1>
 <ul class="nav">
-    <a class="offset8" style="font-size: 50px" href="<?php html_encode(url('user/user_profile'))?>">View Profile</a>
+    <a class="offset8" style="font-size: 35px" href="<?php html_encode(url('user/user_profile'))?>"><?php echo $session_firstname ?>'s Profile</a>
     <?php foreach ($threads as $v):  ?>
         <li class="well">
             <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><b><?php html_encode($v->title)?></b></a>

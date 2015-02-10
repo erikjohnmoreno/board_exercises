@@ -6,6 +6,7 @@
     const MAX_LENGTH_USERNAME = 16;
     const MAX_LENGTH_COMMENT = 200;
 
+
      public $validation = array(
              'username' => array(
                 'length' => array(
@@ -129,19 +130,16 @@
                             //user that liked the comment
     public function likeComment($user_id)
     {
-
         try {
             $db = DB::conn();
-            $query = 'SELECT * FROM liked WHERE comment_id =? AND user_id = ?';
-            $row = $db->row($query, array($this->comment_id, $user_id));
-
+            //$query = 'SELECT * FROM liked WHERE comment_id = ? AND user_id = ?';
+            //$row = $db->row($query, array($this->comment_id, $user_id));
             $db->begin();            
-            if (!$row) {
+            if (!$this->isLiked($this->comment_id, $user_id)) {
             $db->insert('liked', array('comment_id' => $this->comment_id,
                                        'user_id' => $user_id));
-            }
-            else {
-                echo "pwede yan";
+
+            $db->query('UPDATE comment SET likes = likes + 1 WHERE id = :id', array('id' => $this->comment_id));
             }
                        
             $db->commit();
@@ -152,15 +150,32 @@
         return $row;
     }
 
+    public function unlikeComment($user_id)
+    {
+        try {
+            $db = DB::conn();
+            $db->begin();
+            if ($this->isliked($this->comment_id, $user_id)) {
+                $db->query('DELETE FROM liked 
+                            WHERE comment_id = ? 
+                            AND user_id = ?', array($this->comment_id, $user_id));
+
+                $db->query('UPDATE comment SET likes = likes - 1 WHERE id = :id', array('id' => $this->comment_id));
+            }
+            $db->commit();
+        } catch (Exception $e) {
+            $db->rollback();
+        }
+    }
+
 
     public function getLikeCount()
     {
         $like_count = array();
 
-        $db= DB::conn();
-        // $rows= $db->rows('SELECT comment_id, count(user_id) as liked FROM liked 
-                           // WHERE comment_id = ?', array($comment_id));
-        $rows = $db->rows('SELECT *, l.comment_id, count(l.user_id) as liked, c.body FROM liked l, comment c
+        $db = DB::conn();
+
+        $rows = $db->rows('SELECT *, count(l.user_id) as liked, c.body FROM liked l, comment c
                            WHERE l.comment_id = c.id
                            GROUP BY l.comment_id 
                            ORDER BY count(l.user_id) DESC ');
@@ -170,7 +185,17 @@
         }
         
         return $like_count;
+    }
 
+    public function isLiked($comment_id, $user_id)
+    {
+        $db = DB::conn();
+
+        $rows = $db->rows('SELECT * FROM liked 
+                           WHERE comment_id = ? 
+                           AND user_id = ?', array($comment_id, $user_id));
+
+        return $rows ? true : false;
     }
     
  } 

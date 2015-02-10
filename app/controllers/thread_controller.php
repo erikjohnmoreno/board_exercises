@@ -9,6 +9,7 @@ class ThreadController extends AppController
     public function index()
     {
         $session_id = $_SESSION['id'];
+        $session_firstname = $_SESSION['firstname'];
         $threads = Thread::getAllThreads(); // GET all list of threads from database
         $current = max(Param::get('page'),SimplePagination::MIN_PAGE_NUM);//get page number specified in view/index
         $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);     
@@ -24,6 +25,7 @@ class ThreadController extends AppController
     public function user_thread()
     {            
         $session_id = $_SESSION['id'];
+        $session_firstname = $_SESSION['firstname'];
         $threads = Thread::getAll($_SESSION['id']); // get all list of threads from current user login database
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);//get page number specified in view/view_user_thread
         $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);

@@ -54,7 +54,7 @@ function getTimeElapsed($created)
     } elseif ($time_elapsed >= SECONDS_PER_HOUR && $time_elapsed < SECONDS_PER_DAY) {
         echo $date_format->format("%h hours ago");
     } elseif ($time_elapsed >= SECONDS_PER_DAY && $time_elapsed < SECONDS_PER_MONTH) {
-        echo $date_format->format("%d days ago");
+        echo $date_format->format("%d days ago");    
     } elseif ($time_elapsed >= SECONDS_PER_MONTH && $time_elapse < SECONDS_PER_YEAR) {
         echo $date_format->format("%m months ago");
     } else {

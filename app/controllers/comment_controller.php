@@ -22,7 +22,6 @@ class CommentController extends AppController
         $comments = array_slice($comments, $pagination->start_index, $pagination->count);
         $_SESSION['current_page'] = $current;
 
-$comment_list = $comment->getLikeCount();
         $this->set(get_defined_vars());
     }
 
@@ -104,6 +103,15 @@ $comment_list = $comment->getLikeCount();
         redirect("/comment/view?page={$_SESSION['current_page']}&thread_id={$_SESSION['thread_id']}");
         $this->set(get_defined_vars());
         
+    }
+
+    public function unlike_comment()
+    {
+        $comment = new Comment();
+        $comment->comment_id = Param::get('comment_id');
+        $comment->unlikeComment($_SESSION['id']);
+        redirect("/comment/view?page={$_SESSION['current_page']}&thread_id={$_SESSION['thread_id']}");
+        $this->set(get_defined_vars());
     }
 
     public function top_comments()
