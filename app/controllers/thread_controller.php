@@ -10,7 +10,8 @@ class ThreadController extends AppController
     {
         $session_id = $_SESSION['id'];
         $session_firstname = $_SESSION['firstname'];
-
+        $user = new User();
+        $users = $user->getAllUser();
         $threads = Thread::getAllThreads(); // GET all list of threads from database
         $current = max(Param::get('page'),SimplePagination::MIN_PAGE_NUM);//get page number specified in view/index
         $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);     

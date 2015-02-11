@@ -117,6 +117,8 @@ class CommentController extends AppController
     public function top_comments()
     {
         $comment = new Comment();
+        $thread = new Thread();
+        $threads = $thread->getAllThreads();
         $comments = $comment->getLikeCount();
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
         $pagination = new SimplePagination($current, self::MAX_COMMENT_PER_PAGE);
