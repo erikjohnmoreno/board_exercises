@@ -20,18 +20,19 @@
                  ),
              );
 
+    //getting list of all user from user model 
+    public function getByUser()
+    {
+        return user::getAllUser();
+    } 
+
     //retrieve comments of a certain thread from database
     public function getComments($thread_id)
     {
         $comments = array();
         $db = DB::conn();
 
-        $rows = $db->rows('SELECT * FROM user 
-                            INNER JOIN comment 
-                            ON user.id = comment.userid 
-                            WHERE comment.thread_id = ? 
-                            ORDER BY comment.created ASC',
-                            array($thread_id));
+        $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ?',array($thread_id));
 
         foreach ($rows as $row) {
             $comments[] = new self($row);
@@ -62,7 +63,10 @@
         $num_comments = array();
         $db = DB::conn();
 
-        $rows = $db->rows('SELECT thread_id, count(body) as comment_count FROM comment GROUP BY thread_id');
+        $rows = $db->rows('SELECT thread_id, count(body) as comment_count 
+                           FROM comment 
+                           GROUP BY thread_id
+                           ORDER BY count(body) DESC');
         
         foreach ($rows as $row) {
             $num_comments[] = new self($row);
@@ -108,13 +112,26 @@
         }
     }
 
-    public function delete($comment_id)
+    public function deleteByComment($comment_id)
     {
         try {
             $db = DB::conn();
             $db->begin();
             $db->query('DELETE FROM comment WHERE id = ?', 
                         array($comment_id));
+            $db->commit();
+        } catch (Exception $e) {
+            $db->rollback();
+        }
+    }
+
+    public function deleteCommentByThread($thread_id)
+    {
+        try {
+            $db = DB::conn();
+            $db->begin();
+            $db->query('DELETE FROM comment WHERE thread_id = ?',
+                        array($thread_id));
             $db->commit();
         } catch (Exception $e) {
             $db->rollback();

@@ -14,7 +14,7 @@ class ThreadController extends AppController
         $users = $user->getAllUser();
         $threads = Thread::getAllThreads(); // GET all list of threads from database
         $current = max(Param::get('page'),SimplePagination::MIN_PAGE_NUM);//get page number specified in view/index
-        $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);     
+        $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);
         $remaining_threads = array_slice($threads, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_threads);
         $page_links = createPaginationLinks(count($threads), $current, $pagination->count);
@@ -47,13 +47,13 @@ class ThreadController extends AppController
             
         switch ($page) {
             case 'create':
-                break;               
-                case 'create_end':
+                break;
+            case 'create_end':
                 $thread->title = trim(Param::get('title'));
                 $comment->body = trim(Param::get('body'));
                 try {
-                    $thread->create($comment, $_SESSION['id']);  
-                    redirect('/thread/index');                  
+                    $thread->create($comment, $_SESSION['id']);
+                    redirect('/thread/index');
                 } catch (ValidationException $e) {
                     $page = 'create';
                 }
@@ -70,10 +70,12 @@ class ThreadController extends AppController
     public function delete()
     {
         $thread = new Thread();
+        $comment = new Comment();
         $thread_id = Param::get('thread_id');
         $page = Param::get('page_next');
 
-        $thread->delete($thread_id);
+        $comment->deleteCommentByThread($thread_id);
+        $thread->deleteThread($thread_id);
         redirect('/thread/index');
 
         $this->set(get_defined_vars());
@@ -83,13 +85,15 @@ class ThreadController extends AppController
     public function top_threads()
     {
         $thread = new Thread();
-        $comment_count = $thread->getAllThreadByComment();
+        $threads = $thread->getAllThreads();
+        $comment_count_by_thread = $thread->getCommentCount();
+
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
         $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);
-        $remaining_threads = array_slice($comment_count, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
+        $remaining_threads = array_slice($threads, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_threads);
-        $page_links = createPaginationLinks(count($comment_count), $current, $pagination->count);
-        $comment_count = array_slice($comment_count, $pagination->start_index, $pagination->count);
+        $page_links = createPaginationLinks(count($threads), $current, $pagination->count);
+        $threads = array_slice($threads, $pagination->start_index, $pagination->count);
         $this->set(get_defined_vars());
     }
 

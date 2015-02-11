@@ -6,7 +6,6 @@ class User extends Appmodel
     const MAX_LENGTH = 16;
     const MIN_LENGTH_NAME = 1;
 
-
     public $login_flag = true; //indicator that tells user is currently login
 
     public $validation = array(
@@ -44,7 +43,7 @@ class User extends Appmodel
             );
 
     //get all user from database
-    public function getAllUser()
+    public static function getAllUser()
     {  
         $users = array();
         $db = DB::conn();
@@ -162,8 +161,8 @@ class User extends Appmodel
         try {
             $db = DB::conn();
             $db->begin();
-            $db->update('user', array('firstname' => $this->firstname, 
-                                      'lastname' => $this->lastname), 
+            $db->update('user', array('firstname' => $this->firstname,
+                                      'lastname' => $this->lastname),
                                 array('id' => $session_id));
             $db->commit();
         } catch (Exception $e) {

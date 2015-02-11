@@ -36,14 +36,14 @@ class UserController extends AppController
     public function login()
     {
         if (isset($_SESSION['id'])) {
-            header('Location: /thread/index');       
+            redirect('/thread/index');
         } else {
             $user = new User();
             $page = Param::get('page_next', 'login');
 
             switch ($page) {
                 case 'login':
-                    break;   
+                    break;
                 case 'login_next':
                     $user->username = Param::get('username');
                     $user->password = Param::get('password');
@@ -64,8 +64,8 @@ class UserController extends AppController
             }
 
             $this->set(get_defined_vars());
-            $this->render($page);     
-        }       
+            $this->render($page);
+        }
     }
 
     public function logout()
@@ -82,7 +82,7 @@ class UserController extends AppController
         switch ($page) {
             case 'update_info':
                 break;   
-            case 'update_info_next':                   
+            case 'update_info_next':
                 $user->new_password = Param::get('new_password');
                 $user->old_password = Param::get('old_password');
                 try {                         
@@ -116,10 +116,10 @@ class UserController extends AppController
         switch ($page) {
             case 'update_user_profile':
                 break;   
-            case 'update_info_next':                   
+            case 'update_info_next':
                 $user->firstname = trim(Param::get('firstname'));
                 $user->lastname = trim(Param::get('lastname'));
-                try {                         
+                try {
                     $user->updateUserProfile($_SESSION['id']); 
                 } catch (ValidationException $e) {
                     $page = 'update_user_profile';
@@ -132,5 +132,4 @@ class UserController extends AppController
         $this->set(get_defined_vars());
         $this->render($page);
     }
-        
 }
