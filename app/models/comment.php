@@ -27,7 +27,7 @@
     } 
 
     //retrieve comments of a certain thread from database
-    public function getComments($thread_id)
+    public function getCommentsByThread($thread_id)
     {
         $comments = array();
         $db = DB::conn();
@@ -42,7 +42,7 @@
     }
 
     //get all comments of a certain comment_id
-    public function getAllComments($comment_id)
+    public function getComments($comment_id)
     {
         $comments = array();
         $db = DB::conn();
@@ -51,7 +51,7 @@
                             WHERE id = ?', array($comment_id));
 
         foreach ($rows as $row) {
-            $comments[] = new self($row);
+             $comments[] = new self($row);
         }
 
         return $comments;
@@ -132,6 +132,7 @@
             $db->begin();
             $db->query('DELETE FROM comment WHERE thread_id = ?',
                         array($thread_id));
+
             $db->commit();
         } catch (Exception $e) {
             $db->rollback();
