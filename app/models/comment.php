@@ -20,13 +20,18 @@
                  ),
              );
 
-    //getting list of all user from user model 
+    /**
+    * get all user from user model
+    */
     public function getByUser()
     {
         return user::getAllUser();
     } 
 
-    //retrieve comments of a certain thread from database
+    /**
+    * get comments in a thread
+    * @param $thread_id
+    */
     public function getCommentsByThread($thread_id)
     {
         $comments = array();
@@ -41,7 +46,10 @@
         return $comments;
     }
 
-    //get all comments of a certain comment_id
+    /**
+    * get comment function
+    * @param $comment_id
+    */
     public function getComments($comment_id)
     {
         $comments = array();
@@ -57,7 +65,9 @@
         return $comments;
     }
 
-    //get comment number of comments in each thread
+    /**
+    * get count of comments in a thread
+    */
     public static function getByThread()
     {
         $num_comments = array();
@@ -75,7 +85,12 @@
         return $num_comments;
     }
 
-    //inserting a comment to a certain thread_id to database
+    /**
+    * inserting a comment
+    * @param $comment 
+    * @param $thread_id
+    * @param $session_id
+    */
     public function write(Comment $comment, $thread_id, $session_id)
     {
         $thread = new Thread();
@@ -94,7 +109,9 @@
         }    
     }
 
-    //function to edit comments created by certain user
+    /**
+    * function to edit comments created by certain user
+    */
     public function edit()
     { 
         if (!$this->validate()) {
@@ -113,7 +130,10 @@
         }
     }
 
-    //function to delete single comments by comment id
+    /**
+    * delete single comments
+    * @param $comment_id
+    */
     public function deleteByComment($comment_id)
     {
         try {
@@ -128,6 +148,10 @@
     }
 
     //function to delete all comments by thread_id
+     /**
+    * delete comments 
+    * @param $thread_id
+    */
     public function deleteCommentByThread($thread_id)
     {
         try {
@@ -142,6 +166,10 @@
         }
     }
 
+    /**
+    * like comment function
+    * @param $user_id
+    */
     public function likeComment($user_id)
     {
         try {
@@ -165,6 +193,10 @@
         return $row;
     }
 
+    /**
+    * unlike comment function
+    * @param $user_id
+    */
     public function unlikeComment($user_id)
     {
         try {
@@ -186,6 +218,9 @@
         }
     }
 
+    /**
+    * get all comment function
+    */
     public function getAllComment()
     {
         $like_count = array();
@@ -200,11 +235,19 @@
         return $like_count;
     }
 
+    /**
+    * get comment count from like model
+    */
     public function getCountFromLike()
     {
         return like::getCount();
     }
 
+    /**
+    * check if the comment is liked
+    * @param comment_id
+    * @param $user_id
+    */
     public function isLiked($comment_id, $user_id)
     {
         $db = DB::conn();

@@ -15,7 +15,10 @@ class Thread extends AppModel
                     ),
                 );
 
-    //function to get all threads of user currently login 
+    /**
+    * function to get all threads of user currently login
+    * @param $session_id
+    */
     public static function getAll($session_id)
     {
         $threads = array();
@@ -30,7 +33,9 @@ class Thread extends AppModel
         return $threads;
     }
 
-    //function to get all threads from database
+    /**
+    *function to get all threads from database
+    */
     public static function getAllThreads()
     {
         $threads = array();
@@ -44,7 +49,10 @@ class Thread extends AppModel
         return $threads;
     }
 
-    //function to get thread by id
+    /**
+    * get thread function
+    * @param $id
+    */
     public static function get($id)
     {
         $db = DB::conn();
@@ -59,8 +67,11 @@ class Thread extends AppModel
         return new self($row);        
     }
 
-        
-    //inserting a comment to database;
+    /**
+    * inserting a comment to database
+    * @param $comment
+    * @param $session_id
+    */
     public function create(Comment $comment, $session_id)
     {
         $instant_comment = new Comment();
@@ -86,7 +97,10 @@ class Thread extends AppModel
         }           
     }
 
-    //function to delete thread by id
+    /**
+    * delete thread function
+    * @param $thread_id
+    */
     public function deleteThread($thread_id)
     {
         try {
@@ -99,7 +113,9 @@ class Thread extends AppModel
         }
     }
 
-    //function to get comment count from comment model
+    /**
+    * get comment count from comment model
+    */
     public function getCommentCount()
     {
         return Comment::getByThread();

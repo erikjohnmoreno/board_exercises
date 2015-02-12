@@ -1,5 +1,4 @@
 <?php 
-    //Model for user registration and login
 class User extends Appmodel
 {
     const MIN_LENGTH = 8;
@@ -42,7 +41,9 @@ class User extends Appmodel
                 ),
             );
 
-    //get all user from database
+    /**
+    * get all user
+    */
     public static function getAllUser()
     {  
         $users = array();
@@ -56,7 +57,9 @@ class User extends Appmodel
         return $users;
     }
 
-    //Function to add a username and password to registration database
+    /**
+    * Function to add a username and password to registration database
+    */
     public function register()
     {
         $current_time = date('Y-m-d H:i:s');
@@ -119,7 +122,10 @@ class User extends Appmodel
         return $row;
     }
 
-    //update information of user
+    /**
+    * update information of user
+    * @param $session_id
+    */
     public function updateInfo($session_id)
     {
         $this->validate();
@@ -138,7 +144,10 @@ class User extends Appmodel
 
     }
 
-    //function to get all user by userid
+    /**
+    * get all user
+    * @param $id
+    */
     public function getAll($id)
     {
         $users = array();
