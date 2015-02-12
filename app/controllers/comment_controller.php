@@ -81,7 +81,6 @@ class CommentController extends AppController
         $this->render($page);
     }
 
-    //function to delete comment according to comment_id
     public function delete()
     {
         $comment = new Comment();

@@ -44,6 +44,7 @@ class Thread extends AppModel
         return $threads;
     }
 
+    //function to get thread by id
     public static function get($id)
     {
         $db = DB::conn();
@@ -85,6 +86,7 @@ class Thread extends AppModel
         }           
     }
 
+    //function to delete thread by id
     public function deleteThread($thread_id)
     {
         try {
@@ -97,6 +99,7 @@ class Thread extends AppModel
         }
     }
 
+    //function to get comment count from comment model
     public function getCommentCount()
     {
         return comment::getByThread();

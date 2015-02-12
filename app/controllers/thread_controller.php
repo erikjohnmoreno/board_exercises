@@ -10,6 +10,7 @@ class ThreadController extends AppController
     {
         $session_id = $_SESSION['id'];
         $session_firstname = $_SESSION['firstname'];
+        
         $user = new User();
         $users = $user->getAllUser();
         $threads = Thread::getAllThreads(); // GET all list of threads from database

@@ -94,6 +94,7 @@
         }    
     }
 
+    //function to edit comments created by certain user
     public function edit()
     { 
         if (!$this->validate()) {
@@ -112,6 +113,7 @@
         }
     }
 
+    //function to delete single comments by comment id
     public function deleteByComment($comment_id)
     {
         try {
@@ -125,6 +127,7 @@
         }
     }
 
+    //function to delete all comments by thread_id
     public function deleteCommentByThread($thread_id)
     {
         try {
@@ -138,7 +141,7 @@
             $db->rollback();
         }
     }
-                            
+
     public function likeComment($user_id)
     {
         try {

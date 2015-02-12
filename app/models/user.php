@@ -102,7 +102,7 @@ class User extends Appmodel
         }
     }
 
-    //function for comparing (username password) login and (username/password) database
+    //function for comparing (username/password) entered by user to (username/password) database
     public function login()
     {
         $db = DB::conn();
@@ -138,6 +138,7 @@ class User extends Appmodel
 
     }
 
+    //function to get all user by userid
     public function getAll($id)
     {
         $users = array();

@@ -6,7 +6,6 @@
 <body style="" >
 <center>
 <form class="well span4" method="post" action="">
-
     <div class="container">
         <div class="row">
             <div class="span4">
@@ -17,12 +16,12 @@
                     <input type="hidden" name="page_next" value="login_next">
                     </br>
                     <div class="wrapper">
-                        <span class="group-btn">     
+                        <span class="group-btn">
                             <button class="btn btn-primary btn-block" >login </button>
                             <a href="<?php html_encode(url('user/register'))?>">Register</a>
                         </span>
                     </div>
-                </div>           
+                </div>
             </div>
         </div>
     </div>

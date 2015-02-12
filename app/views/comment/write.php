@@ -1,5 +1,4 @@
 <h2><?php html_encode($thread->title) ?></h2>
-
 <?php if ($comment->hasError()): ?>
 <div class="alert alert-block">
 <h4 class="alert-heading">Validation error! </h4>
@@ -19,6 +18,4 @@
     <input type="hidden" name="page_next" value="write_end">
     <button type="submit" class="btn btn-primary">Submit</button>
     <a href="<?php html_encode(url('thread/index'))?>"> Go back to thread</a>
-
 </form>
-
