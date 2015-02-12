@@ -25,7 +25,7 @@ class ThreadController extends AppController
     }
 
     public function user_thread()
-    {            
+    {
         $session_id = $_SESSION['id'];
         $session_firstname = $_SESSION['firstname'];
 

@@ -36,7 +36,7 @@ class CommentController extends AppController
         if (!$thread_id) {
             throw new NotFoundException("thread_id not found");
         }
-        $thread = Thread::get($thread_id)
+        $thread = Thread::get($thread_id);
         $comment = new Comment();
         $page = Param::get('page_next');
 
@@ -70,8 +70,8 @@ class CommentController extends AppController
 
         switch ($page) {
             case 'edit':
-                break;                
-            case 'edit_end':                    
+                break;
+            case 'edit_end':
                 $comment->body = trim(Param::get('body'));
                 try {
                     $comment->edit();
@@ -142,5 +142,4 @@ class CommentController extends AppController
         $this->set(get_defined_vars());
 
     }
-        
 }

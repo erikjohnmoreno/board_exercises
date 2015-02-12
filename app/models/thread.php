@@ -64,7 +64,7 @@ class Thread extends AppModel
             throw new RecordNotFoundException('no record found');
         }
 
-        return new self($row);        
+        return new self($row);
     }
 
     /**
