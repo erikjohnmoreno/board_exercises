@@ -9,7 +9,11 @@ class CommentController extends AppController
     public function view()
     {  
         $session_id = $_SESSION['id'];
-        $thread = Thread::get(Param::get('thread_id'));
+        $thread_id = Param::get('thread_id');
+        if (!$thread_id) {
+            throw new NotFoundException("thread_id not found");
+        }
+        $thread = Thread::get($thread_id);
         $comment = new Comment();       
         $comments = $comment->getCommentsByThread($thread->id);//getting all comments on the selected thread
         $users = $comment->getByUser();//getting all user
@@ -28,7 +32,11 @@ class CommentController extends AppController
 
     public function write()
     {
-        $thread = Thread::get(Param::get('thread_id'));
+        $thread_id = Param::get('thread_id');
+        if (!$thread_id) {
+            throw new NotFoundException("thread_id not found");
+        }
+        $thread = Thread::get($thread_id)
         $comment = new Comment();
         $page = Param::get('page_next');
 
