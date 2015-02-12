@@ -5,7 +5,7 @@
             <?php if ($value->id == $v->userid): ?>            
                 <div class="comment">
                     <div class="meta">
-                        <u style="font-size: 16px"><?php html_encode($value->firstname) ?></u>&nbsp;<i>post a comment <?php getTimeElapsed($v->created) ?></i>
+                        <u style="font-size: 16px"><a href="<?php html_encode(url('user/others_profile', array('userid' => $v->userid))) ?>"><?php html_encode($value->firstname) ?></a></u>&nbsp;<i>post a comment <?php getTimeElapsed($v->created) ?></i>
                     </div>
                     <input type="hidden" name="comment_id" value="<?php html_encode($v->id)?>">
                     <div style="font-size: 12px; word-wrap: break-word">&nbsp;&nbsp;&nbsp;&nbsp;
