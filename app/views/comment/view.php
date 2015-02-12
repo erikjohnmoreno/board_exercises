@@ -1,5 +1,5 @@
 <h1><?php html_encode($thread->title) ?> <a class="btn btn-large btn-primary" href="<?php html_encode(url('comment/top_comments'))?>">View Top Comments</a></h1>
-<form class="span6">
+<form class="well span6">
     <?php foreach ($comments as $k => $v): ?>
         <?php foreach ($users as $key => $value): ?>
             <?php if ($value->id == $v->userid): ?>            

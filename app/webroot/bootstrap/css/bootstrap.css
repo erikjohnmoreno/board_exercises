@@ -2938,6 +2938,8 @@ table [class*=span],
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
+  background-repeat: no-repeat;
+  background-image: url('/bootstrap/img/paper.png');
   background-color: #f5f5f5;
   border: 1px solid #e3e3e3;
   -webkit-border-radius: 4px;
