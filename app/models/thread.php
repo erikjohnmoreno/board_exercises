@@ -102,6 +102,6 @@ class Thread extends AppModel
     //function to get comment count from comment model
     public function getCommentCount()
     {
-        return comment::getByThread();
+        return Comment::getByThread();
     }
 }

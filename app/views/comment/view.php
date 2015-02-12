@@ -1,4 +1,4 @@
-<h1><?php html_encode($thread->title) ?></h1>
+<h1><?php html_encode($thread->title) ?> <a class="btn btn-large btn-primary" href="<?php html_encode(url('comment/top_comments'))?>">View Top Comments</a></h1>
 <form class="span6">
     <?php foreach ($comments as $k => $v): ?>
         <?php foreach ($users as $key => $value): ?>
@@ -43,7 +43,7 @@
         <?php endif ?>
     </div>
 <hr>
-    <form class = "well span12" method="post" action="<?php html_encode(url('comment/write')) ?>">
+    <form class = "well span6" method="post" action="<?php html_encode(url('comment/write')) ?>">
         <label>Comment</label>
         <textarea name="body"><?php html_encode(Param::get('body')) ?></textarea>
         <br/>
@@ -51,4 +51,5 @@
         <input type="hidden" name="page_next" value="write_end">
         <button type="submit" class="btn btn-primary">Submit</button>
         <a href="<?php html_encode(url('thread/index'))?>"> Go back to thread</a>
+       
     </form>

@@ -118,15 +118,18 @@ class CommentController extends AppController
     {
         $comment = new Comment();
         $thread = new Thread();
+
         $threads = $thread->getAllThreads();
-        $comments = $comment->getLikeCount();
+        $comments = $comment->getAllComment();
+        $comment_top = $comment->getCountFromLike();
+
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
         $pagination = new SimplePagination($current, self::MAX_COMMENT_PER_PAGE);
-        $remaining_comments = array_slice($comments, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
+        $remaining_comments = array_slice($comment_top, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_comments);
 
-        $page_links = createPaginationLinks(count($comments), $current, $pagination->count);
-        $comments = array_slice($comments, $pagination->start_index, $pagination->count);
+        $page_links = createPaginationLinks(count($comment_top), $current, $pagination->count);
+        $comment_top = array_slice($comment_top, $pagination->start_index, $pagination->count);
 
         $this->set(get_defined_vars());
 

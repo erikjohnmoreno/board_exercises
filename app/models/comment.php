@@ -6,7 +6,7 @@
     const MAX_LENGTH_USERNAME = 16;
     const MAX_LENGTH_COMMENT = 200;
 
-     public $validation = array(
+    public $validation = array(
              'username' => array(
                 'length' => array(
                      'validate_between', self::MIN_LENGTH, self::MAX_LENGTH_USERNAME,
@@ -186,21 +186,23 @@
         }
     }
 
-    public function getLikeCount()
+    public function getAllComment()
     {
         $like_count = array();
         $db = DB::conn();
 
-        $rows = $db->rows('SELECT *, count(l.user_id) as liked, c.body FROM liked l, comment c
-                           WHERE l.comment_id = c.id
-                           GROUP BY l.comment_id 
-                           ORDER BY count(l.user_id) DESC ');
+        $rows = $db->rows('SELECT * FROM comment');
 
         foreach ($rows as $row) {
             $like_count[] = new self($row);
         }
         
         return $like_count;
+    }
+
+    public function getCountFromLike()
+    {
+        return like::getCount();
     }
 
     public function isLiked($comment_id, $user_id)
