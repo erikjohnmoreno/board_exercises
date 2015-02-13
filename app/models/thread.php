@@ -107,6 +107,7 @@ class Thread extends AppModel
             $db = DB::conn();
             $db->begin();
             $db->query('DELETE FROM thread WHERE id = ?', array($thread_id));
+            $db->query('DELETE FROM liked WHERE thread_id = ?', array($thread_id));
             $db->commit();
         } catch (Exception $e) {
             $db->rollback();

@@ -178,7 +178,8 @@
 
             if (!$this->isLiked($this->comment_id, $user_id)) {
                 $db->insert('liked', array('comment_id' => $this->comment_id,
-                                           'user_id' => $user_id));
+                                           'user_id' => $user_id,
+                                           'thread_id' => $this->thread_id));
 
                 $db->query('UPDATE comment 
                             SET likes = likes + 1

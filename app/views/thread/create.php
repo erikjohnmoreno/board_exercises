@@ -21,11 +21,11 @@
     </div>
 <?php endif ?>
 
-<form class="well" method="post">
+<form class="well span6" method="post">
     <label>Title</label>
     <input type="text" class="span2" name="title" value="<?php html_encode(Param::get('title')) ?>">
     <label>Comment</label>
-    <textarea name="body"><?php html_encode(Param::get('body')) ?></textarea>
+    <textarea class="span6" style="resize: none" name="body"><?php html_encode(Param::get('body')) ?></textarea>
     <br />
     <input type="hidden" name="page_next" value="create_end">
     <button type="submit" class="btn btn-primary">Submit</button>  

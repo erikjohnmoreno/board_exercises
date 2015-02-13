@@ -4,7 +4,8 @@
     */
 class UserController extends AppController
 {
-        
+    const MAX_USER_PER_PAGE = 10;
+
     public function register()
     {
         $user = new User();
@@ -106,6 +107,31 @@ class UserController extends AppController
         $user = new User();
         $users = $user->getAll($_SESSION['id']);
         $this->set(get_defined_vars());
+    }
+
+    public function others_profile()
+    {
+        $user = new User();
+        $id = Param::get('userid');
+        $users = $user->getAllUser();
+        $this->set(get_defined_vars());
+
+        
+    }
+
+    public function users_list()
+    {
+        $user = new User();
+        $id = Param::get('user_id');
+        $users = $user->getAllUser();
+
+        $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
+        $pagination = new SimplePagination($current, self::MAX_USER_PER_PAGE);
+        $remaining_users = array_slice($users, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
+        $pagination->checkLastPage($remaining_users);
+        $page_links = createPaginationLinks(count($users), $current, $pagination->count);
+        $users = array_slice($users, $pagination->start_index, $pagination->count);
+        $this->set(get_defined_vars()); 
     }
 
     public function update_user_profile()
