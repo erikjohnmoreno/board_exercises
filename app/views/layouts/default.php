@@ -5,6 +5,7 @@
     <title>The Board</title>
 
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
     <style>
       body {
         padding-top: 60px;
@@ -12,7 +13,7 @@
     </style>
   </head>
 
-  <body>
+  <body style="background: url('/bootstrap/img/notice_board.jpg')">
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
