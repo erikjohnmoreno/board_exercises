@@ -99,6 +99,7 @@ class CommentController extends AppController
     {
         $comment = new Comment();
         $comment->comment_id = Param::get('comment_id');
+        $comment->thread_id = Param::get('thread_id');
         $comment->likeComment($_SESSION['id']);
         redirect("/comment/view?page={$_SESSION['current_page']}&thread_id={$_SESSION['thread_id']}");
         $this->set(get_defined_vars());

@@ -11,10 +11,10 @@
 </div>
 <?php endif ?>
 
-<form class="well" method="post" action="">
-<?php foreach ($comments as $key):?>	
+<form class="well span6" method="post" action="">
+<?php foreach ($comments as $key):?>
     <label>Comment</label>
-    <textarea name="body"><?php echo $key->body; html_encode(Param::get('body')) ?></textarea>
+    <textarea class="span6" style="resize:none" name="body"><?php echo $key->body; html_encode(Param::get('body')) ?></textarea>
     <br/>
     <input type="hidden" name="page_next" value="edit_end">
     <button type="submit" name="edit" class="btn btn-primary">Done editing</button>
