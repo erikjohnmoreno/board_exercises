@@ -19,7 +19,7 @@
                     <div class="wrapper">
                         <span class="group-btn">
                             <button class="btn btn-primary btn-block" >login </button>
-                            <a href="<?php html_encode(url('user/register'))?>">Register</a>
+                            <a style="color: #003366"href="<?php html_encode(url('user/register'))?>">Register</a>
                         </span>
                     </div>
                 </div>

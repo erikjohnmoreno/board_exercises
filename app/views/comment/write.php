@@ -10,9 +10,9 @@
 </div>
 <?php endif ?>
 
-<form class="well" method="post" action="<?php html_encode(url('comment/write')) ?>">
+<form class="well span6" method="post" action="<?php html_encode(url('comment/write')) ?>">
     <label>Comment</label>
-    <textarea name="body"><?php html_encode(Param::get('body')) ?></textarea>
+    <textarea class="span6" style="resize:none" name="body"><?php html_encode(Param::get('body')) ?></textarea>
     <br/>
     <input type="hidden" name="thread_id" value="<?php html_encode($thread->id) ?>">
     <input type="hidden" name="page_next" value="write_end">
