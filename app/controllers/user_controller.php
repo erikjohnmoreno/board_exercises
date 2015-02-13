@@ -116,6 +116,14 @@ class UserController extends AppController
         $this->set(get_defined_vars()); 
     }
 
+    public function users_list()
+    {
+        $user = new User();
+        $id = Param::get('user_id');
+        $users = $user->getAllUser();
+        $this->set(get_defined_vars());
+    }
+
     public function update_user_profile()
     {
         $user = new User();

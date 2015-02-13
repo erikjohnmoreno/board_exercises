@@ -5,7 +5,7 @@
 <?php endif ?>
 <body style="background: url('/bootstrap/img/board.jpg'); background-repeat: no-repeat;">
 <center>
-<div style="padding-top: 400px; padding-left: 400px; overflow: hidden">
+<div style="padding-top: 200px; padding-left: 200px; overflow: hidden">
 <form class="span6" method="post" action="">
     <div class="container">
         <div class="row">

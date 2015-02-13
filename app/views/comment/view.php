@@ -13,9 +13,9 @@
                         <i><?php if ($v->likes > 0) echo $v->likes ." user liked this comment"?></i> <br/>&nbsp;&nbsp;&nbsp;
 
                         <?php if (!$comment->isliked($v->id, $session_id)): ?>    
-                            <a href="<?php html_encode(url('comment/like_comment', array('comment_id' => $v->id)))?>"><i class="icon-thumbs-up"></i></a>&nbsp;&nbsp;
+                            <a href="<?php html_encode(url('comment/like_comment', array('comment_id' => $v->id)))?>">like</a>&nbsp;&nbsp;
                         <?php else: ?>
-                            <a href="<?php html_encode(url('comment/unlike_comment', array('comment_id' => $v->id)))?>"><i class="icon-thumbs-down"></i></a>&nbsp;&nbsp;
+                            <a href="<?php html_encode(url('comment/unlike_comment', array('comment_id' => $v->id)))?>">unlike</i></a>&nbsp;&nbsp;
                         <?php endif ?>
                                    
                         <?php if ($v->userid == $session_id): ?>

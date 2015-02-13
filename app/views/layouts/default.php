@@ -13,7 +13,7 @@
     </style>
   </head>
 
-  <body style="background: url('/bootstrap/img/notice_board.jpg'); background-repeat: no-repeat;">
+  <body style="background: url('/bootstrap/img/notice_board.jpg');">
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">

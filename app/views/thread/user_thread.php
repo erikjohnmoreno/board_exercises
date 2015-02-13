@@ -17,7 +17,7 @@
         <?php if ($v->userid == $session_id): ?>
             <a class="offset3" 
                href="<?php html_encode(url('thread/delete', array('thread_id' =>$v->id)))?>" 
-               onclick="return confirm('Are you sure you want to delete this thread'?)">delete this thread</a>
+               onclick="return confirm('Are you sure you want to delete this thread'?)"><i class="icon-trash"></i></a>
         <?php endif ?>
         </li>
     <?php endforeach ?>
