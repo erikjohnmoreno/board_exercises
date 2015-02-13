@@ -39,6 +39,9 @@ class User extends Appmodel
                     'check_password'
                     ),
                 ),
+            'email' => array(
+                'email_check' => array(
+                    'check_email'))
             );
 
     /**
@@ -65,7 +68,7 @@ class User extends Appmodel
         $current_time = date('Y-m-d H:i:s');
         $this->validate();
         if ($this->hasError()) {
-            throw new ValidationException('invalid username or password');
+            throw new ValidationException('invalid username or password/email');
         }
         try {
             $db = DB::conn();
@@ -99,6 +102,15 @@ class User extends Appmodel
     public function check_password()
     {
         if ($this->old_password === $_SESSION['password']) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function check_email()
+    {
+        if (preg_match('/\./', $this->email)) {
             return true;
         } else {
             return false;

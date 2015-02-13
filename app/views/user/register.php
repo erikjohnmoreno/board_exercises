@@ -34,6 +34,9 @@
         <?php if (!empty($user->validation_errors['username']['duplicate'])): ?>
           <div><em>Username/E-mail </em> already exists</div>
         <?php endif ?>
+        <?php if (!empty($user->validation_errors['email']['email_check'])): ?>
+          <div><em>invalid email</em></div>
+        <?php endif ?>
     </div>
 <?php endif ?>
 
@@ -50,6 +53,6 @@
     <input type="email" class="span4" name="email" placeholder="email" value="<?php html_encode(Param::get('email'))?>" required>
     <br />
     <input type="hidden" name="page_next" value="register_end">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to proceed?')">Submit</button>
     <a href="<?php html_encode(url('user/login'))?>">Go back to login</a>
 </form>
