@@ -32,7 +32,7 @@
     * get comments in a thread
     * @param $thread_id
     */
-    public function getCommentsByThread($thread_id)
+    public function getByThreadId($thread_id)
     {
         $comments = array();
         $db = DB::conn();
@@ -50,7 +50,7 @@
     * get comment function
     * @param $comment_id
     */
-    public function getComments($comment_id)
+    public function get($comment_id)
     {
         $comments = array();
         $db = DB::conn();
@@ -134,7 +134,7 @@
     * delete single comments
     * @param $comment_id
     */
-    public function deleteByComment($comment_id)
+    public function delete($comment_id)
     {
         try {
             $db = DB::conn();
@@ -152,7 +152,7 @@
     * delete comments 
     * @param $thread_id
     */
-    public function deleteCommentByThread($thread_id)
+    public function deleteByThread($thread_id)
     {
         try {
             $db = DB::conn();
@@ -170,7 +170,7 @@
     * like comment function
     * @param $user_id
     */
-    public function likeComment($user_id)
+    public function like($user_id)
     {
         try {
             $db = DB::conn();
@@ -181,7 +181,7 @@
                                            'user_id' => $user_id));
 
                 $db->query('UPDATE comment 
-                            SET likes = likes + 1 
+                            SET likes = likes + 1
                             WHERE id = :id', array('id' => $this->comment_id));
 
             }                       
@@ -197,7 +197,7 @@
     * unlike comment function
     * @param $user_id
     */
-    public function unlikeComment($user_id)
+    public function unlike($user_id)
     {
         try {
             $db = DB::conn();
@@ -221,7 +221,7 @@
     /**
     * get all comment function
     */
-    public function getAllComment()
+    public function getAll()
     {
         $like_count = array();
         $db = DB::conn();

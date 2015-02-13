@@ -15,7 +15,7 @@ class CommentController extends AppController
         }
         $thread = Thread::get($thread_id);
         $comment = new Comment();       
-        $comments = $comment->getCommentsByThread($thread->id);//getting all comments on the selected thread
+        $comments = $comment->getByThreadId($thread->id);//getting all comments on the selected thread
         $users = $comment->getByUser();//getting all user
         $_SESSION['last_page'] = count(array_chunk($comments, self::MAX_COMMENT_PER_PAGE));//getting the last page
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
@@ -65,7 +65,7 @@ class CommentController extends AppController
     {
         $comment = new Comment();
         $comment->comment_id = Param::get('comment_id');
-        $comments = $comment->getComments($comment->comment_id);
+        $comments = $comment->get($comment->comment_id);
         $page = Param::get('page_next', 'edit');
 
         switch ($page) {
@@ -94,8 +94,8 @@ class CommentController extends AppController
         $comment = new Comment();
         $comment->comment_id = Param::get('comment_id');
         $page = Param::get('page_next');
-        $comment->unlikeComment($_SESSION['id']);
-        $comment->deleteByComment($comment->comment_id);
+        $comment->unlike($_SESSION['id']);
+        $comment->delete($comment->comment_id);
         redirect("/comment/view?thread_id={$_SESSION['thread_id']}");
 
         $this->set(get_defined_vars()); 
@@ -107,7 +107,7 @@ class CommentController extends AppController
     {
         $comment = new Comment();
         $comment->comment_id = Param::get('comment_id');
-        $comment->likeComment($_SESSION['id']);
+        $comment->like($_SESSION['id']);
         redirect("/comment/view?page={$_SESSION['current_page']}&thread_id={$_SESSION['thread_id']}");
         $this->set(get_defined_vars());
         
@@ -117,7 +117,7 @@ class CommentController extends AppController
     {
         $comment = new Comment();
         $comment->comment_id = Param::get('comment_id');
-        $comment->unlikeComment($_SESSION['id']);
+        $comment->unlike($_SESSION['id']);
         redirect("/comment/view?page={$_SESSION['current_page']}&thread_id={$_SESSION['thread_id']}");
         $this->set(get_defined_vars());
     }
@@ -128,7 +128,7 @@ class CommentController extends AppController
         $thread = new Thread();
 
         $threads = $thread->getAllThreads();
-        $comments = $comment->getAllComment();
+        $comments = $comment->getAll();
         $comment_top = $comment->getCountFromLike();
 
         $current = max(Param::get('page'), SimplePagination::MIN_PAGE_NUM);
