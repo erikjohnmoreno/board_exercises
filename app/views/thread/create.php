@@ -29,5 +29,4 @@
     <br />
     <input type="hidden" name="page_next" value="create_end">
     <button type="submit" class="btn btn-primary">Submit</button>  
-    <a href="<?php html_encode(url('thread/user_thread'))?>">Go back</a>
 </form> 

@@ -11,9 +11,12 @@ class User extends Appmodel
             'username' => array(
                 'length' => array(
                     'validate_between', self::MIN_LENGTH, self::MAX_LENGTH
-                ),
+                    ),
                 'duplicate' => array(
                     'check'
+                    ),
+                'no_special_characters' => array(
+                    'validate_special_characters'
                     )
                 ),
             'password' => array(
@@ -22,21 +25,37 @@ class User extends Appmodel
                     ),
                 'duplicate' => array(
                     'check'
-                    )
+                    ),
+                'confirm' => array(
+                    'confirm_password')
                 ),
             'firstname' => array(
                 'length' => array(
                     'validate_between', self::MIN_LENGTH_NAME, self::MAX_LENGTH
-                    )
+                    ),
+                'no_special_characters' => array(
+                    'validate_special_characters'
+                    ),
                 ),
             'lastname' => array(
                 'length' => array(
                     'validate_between', self::MIN_LENGTH_NAME, self::MAX_LENGTH
+                    ),
+                'no_special_characters' => array(
+                    'validate_special_characters'
                     )
                 ),
             'old_password' => array(
                 'match_check' => array(
                     'check_password'
+                    ),
+                ),
+            'new_password' =>array(
+                'confirm_retyped_password' => array(
+                    'confirm_new_password'
+                    ),
+                'length' => array(
+                    'validate_between', self::MIN_LENGTH_NAME, self::MAX_LENGTH
                     ),
                 ),
             'email' => array(
@@ -115,6 +134,21 @@ class User extends Appmodel
         } else {
             return false;
         }
+    }
+
+    public function confirm_password()
+    {
+        return ($this->password === $this->retypepassword) ? true : false;
+    }
+
+    public function confirm_new_password()
+    {
+        return ($this->new_password === $this->retype_newpassword) ? true : false;
+    }
+
+    public function validate_special_characters()
+    {
+        return (preg_match('/[^a-z_0-9]/i', $this->username)) ? false : true;
     }
 
     //function for comparing (username/password) entered by user to (username/password) database

@@ -17,6 +17,7 @@ class UserController extends AppController
             case 'register_end':
                 $user->username = trim(Param::get('username'));
                 $user->password = trim(Param::get('password'));
+                $user->retypepassword = trim(Param::get('retypepassword'));
                 $user->firstname = trim(Param::get('firstname'));
                 $user->lastname = trim(Param::get('lastname'));
                 $user->email = trim(Param::get('email'));
@@ -85,6 +86,7 @@ class UserController extends AppController
                 break;   
             case 'update_info_next':
                 $user->new_password = Param::get('new_password');
+                $user->retype_newpassword = Param::get('retype_newpassword');
                 $user->old_password = Param::get('old_password');
                 try {
                     $user->updateInfo($_SESSION['id']);

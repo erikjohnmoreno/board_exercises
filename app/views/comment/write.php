@@ -1,6 +1,6 @@
 <h2><?php html_encode($thread->title) ?></h2>
 <?php if ($comment->hasError()): ?>
-<div class="alert alert-block">
+<div class="span7 alert alert-block">
 <h4 class="alert-heading">Validation error! </h4>
     <?php if (!empty($comment->validation_errors['body']['length'])): ?>
         <div> <em> Your comment</em> must be between
@@ -17,5 +17,5 @@
     <input type="hidden" name="thread_id" value="<?php html_encode($thread->id) ?>">
     <input type="hidden" name="page_next" value="write_end">
     <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="<?php html_encode(url('thread/index'))?>"> Go back to thread</a>
+    <a href="<?php html_encode(url("comment/view?thread_id={$_SESSION['thread_id']}"))?>"> back</a>
 </form>

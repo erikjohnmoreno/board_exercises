@@ -23,6 +23,10 @@
             <?php html_encode($user->validation['firstname']['length'][2]) ?> characters in length.
           </div>
         <?php endif ?>
+        <?php if (!empty($user->validation_errors['firstname']['no_special_characters'])
+                  || !empty($user->validation_errors['lastname']['no_special_characters'])): ?>
+            <div><em>firstname/lastname</em> should contain letters only</div>
+        <?php endif ?>
 
         <?php if (!empty($user->validation_errors['lastname']['length'])): ?>
           <div><em>last name </em> must be between
@@ -37,6 +41,12 @@
         <?php if (!empty($user->validation_errors['email']['email_check'])): ?>
           <div><em>invalid email</em></div>
         <?php endif ?>
+        <?php if (!empty($user->validation_errors['password']['confirm'])): ?>
+          <div><em>password did not match</em>
+        <?php endif ?>
+        <?php if (!empty($user->validation_errors['username']['no_special_characters'])): ?>
+          <div><em>username</em> should contain only letters, numbers and underscores</div>
+        <?php endif ?>
     </div>
 <?php endif ?>
 
@@ -45,6 +55,8 @@
     <input type="text" class="span4" name="username" placeholder="username" value="<?php html_encode(Param::get('username')) ?>" required>
     <label>Password</label>
     <input type="password" class="span4" name="password" placeholder="password" value="<?php html_encode(Param::get('password')) ?>" required>
+    <label>Retype Password</label>
+    <input type="text" class="span4" name="retypepassword" placeholder="retype password" value="<?php html_encode(Param::get('retypepassword')) ?>" required>
     <label>First Name</label>
     <input type="text" class="span4" name="firstname" placeholder="First Name" value="<?php html_encode(Param::get('firstname')) ?>" required>
     <label>Last Name</label>

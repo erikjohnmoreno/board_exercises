@@ -3,6 +3,8 @@
     <h4 class="alert-heading">Hey What You doin Playah? Login Failed!</h4>
 </div>
 <?php endif ?>
+
+
 <body style="background: url('/bootstrap/img/board.jpg'); background-repeat: no-repeat;">
 <center>
 <div style="padding-top: 200px; padding-left: 200px; overflow: hidden">

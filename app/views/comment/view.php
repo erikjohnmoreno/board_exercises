@@ -1,7 +1,5 @@
 <div class="span12"><h3>
     <?php html_encode($thread->title) ?> 
-    <!-- <a class="btn btn-large btn-primary" href="<?php html_encode(url('comment/top_comments'))?>">View Top Comments</a>
-    <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/index'))?>"> Go back to thread</a> -->    
 </h3></div>
 
 <form class="well span6">
