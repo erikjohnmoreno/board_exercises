@@ -1,5 +1,5 @@
 
-<div style="font-size: 55px; margin: 35px; color: #003366"><strong>All threads</strong></div>
+<div style="text-shadow: 0.1em 0.1em 0.03em #000000; color: #FFFFFF; font-size: 55px; margin: 35px; "><strong>All threads</strong></div>
 <!-- <form class="pull-right well span5"> 
     <a class="" style="font-size: 30px" href="<?php html_encode(url('user/user_profile'))?>"><?php echo $session_firstname ?>'s Profile</a>
     <a style="color: #000000" class="btn btn-large btn-default" href="<?php html_encode(url('user/logout')) ?>">Logout</a>
@@ -11,15 +11,15 @@
     <a class="btn btn-large btn-primary" href="<?php html_encode(url('user/users_list')) ?>">All Users</a>
     <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/create')) ?>">Create Thread</a>
 </form> -->
-<form class="span6">
+<form  class="span6">
     <ul class="nav ">
         <?php foreach ($threads as $v):  ?>
             <?php foreach ($users as $key => $value): ?>
                 <?php if ($value->id == $v->userid): ?>
-                    <li class="well">
+                    <li style="box-shadow: black 0.3em 0.3em 0.3em" class="well">
                     <div class="span5">
                         <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><b><?php html_encode($v->title)?></b></a>
-                        <br/><i>created by: <?php echo "$value->firstname "; getTimeElapsed($v->created) ?></i>
+                        <br/><i><a href="<?php html_encode(url('user/others_profile', array('userid' => $v->userid))) ?>"><i class="icon-user"></i><?php echo "$value->firstname "?></a> <?php getTimeElapsed($v->created) ?></i>
                     </div>
                         <?php if ($v->userid == $session_id): ?>
                             <a class="" href="<?php html_encode(url('thread/delete', array('thread_id' =>$v->id)))?>" onclick="return confirm('Are you sure you want to delete this thread?')" ><i class="icon-trash"></i></a>

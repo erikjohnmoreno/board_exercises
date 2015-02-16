@@ -11,7 +11,7 @@ class CommentController extends AppController
         $session_id = $_SESSION['id'];
         $thread_id = Param::get('thread_id');
         if (!$thread_id) {
-            throw new NotFoundException("thread_id not found");
+            redirect("/thread/index");
         }
         $thread = Thread::get($thread_id);
         $comment = new Comment();       
@@ -34,7 +34,7 @@ class CommentController extends AppController
     {
         $thread_id = Param::get('thread_id');
         if (!$thread_id) {
-            throw new NotFoundException("thread_id not found");
+            redirect("/thread/index");
         }
         $thread = Thread::get($thread_id);
         $comment = new Comment();

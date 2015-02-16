@@ -1,9 +1,9 @@
-<div class="span12" style="font-size: 30px; margin: 30px"><strong><?php echo $session_firstname ?>'s threads</strong></div>
+<div class="span12" style="text-shadow: 0.2em 0.2em 0.03em #000000; color: #FFFFFF;font-size: 30px; margin: 30px"><strong><?php echo $session_firstname ?>'s threads</strong></div>
 
 <form class="span6">
 <ul class="nav">
     <?php foreach ($threads as $v):  ?>
-        <li class="well">
+        <li style="box-shadow: black 0.3em 0.3em 0.3em" class="well">
         <div class="span5">
             <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><b><?php html_encode($v->title) ?></b></a>        
             <br/><i><?php getTimeElapsed($v->created) ?></i>

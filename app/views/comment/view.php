@@ -1,18 +1,18 @@
-<div class="span12"><h3>
+<div style="text-shadow: 0.3em 0.3em 0.03em #000000; color: #FFFFFF" class="span12"><h3>
     <?php html_encode($thread->title) ?> 
 </h3></div>
 
-<form class="well span6">
+<form style="box-shadow: black 0.3em 0.3em 0.3em"class="well span6">
     <?php foreach ($comments as $k => $v): ?>
         <?php foreach ($users as $key => $value): ?>
             <?php if ($value->id == $v->userid): ?>
                 <div class="comment">
                     <div class="meta">
-                        <u style="font-size: 16px"><a href="<?php html_encode(url('user/others_profile', array('userid' => $v->userid))) ?>"><?php html_encode($value->firstname) ?></a></u>&nbsp;<i>post a comment <?php getTimeElapsed($v->created) ?></i>
+                        <u style="text-shadow: 0.05em 0.05em 0.2em;font-size: 16px"><a href="<?php html_encode(url('user/others_profile', array('userid' => $v->userid))) ?>"><?php html_encode($value->firstname) ?></a></u>&nbsp;<i>post a comment <?php getTimeElapsed($v->created) ?></i>
                     </div>
                     <input type="hidden" name="comment_id" value="<?php html_encode($v->id)?>">
                     <div style="font-size: 12px; word-wrap: break-word">
-                        <b style="font-size: 14px"><?php echo readable_text($v->body) ?></b><br/> 
+                        <b style=" font-size: 14px"><?php echo readable_text($v->body) ?></b><br/> 
                         <i><?php if ($v->likes > 0) echo $v->likes ." user liked this comment"?></i> <br/>&nbsp;&nbsp;&nbsp;
 
 
@@ -41,7 +41,7 @@
         <a class="offset3" href="<?php html_encode(url('thread/delete', array('thread_id' =>$thread->id)))?>" onclick="return confirm('Are you sure you want to delete this whole thread?')" >delete this whole thread</a>
     <?php endif ?>
 </form>
-<form class="well span4" method="post" action="<?php html_encode(url('comment/write')) ?>">
+<form style="box-shadow: black 0.3em 0.3em 0.3em"class="well span4" method="post" action="<?php html_encode(url('comment/write')) ?>">
         <label>Comment</label>
         <textarea class="span4" style="resize:none" name="body"><?php html_encode(Param::get('body')) ?></textarea>
         <br/>

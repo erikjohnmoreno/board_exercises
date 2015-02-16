@@ -21,7 +21,7 @@
     </div>
 <?php endif ?>
 
-<form class="well span6" method="post">
+<form style="box-shadow: black 0.3em 0.3em 0.3em"class="well span6" method="post">
     <label>Title</label>
     <input type="text" class="span2" name="title" value="<?php html_encode(Param::get('title')) ?>">
     <label>Comment</label>
