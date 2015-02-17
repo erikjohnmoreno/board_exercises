@@ -75,6 +75,7 @@ class ThreadController extends AppController
     {
         $thread = new Thread();
         $comment = new Comment();
+        $session_id = $_SESSION['id'];
         $thread_id = Param::get('thread_id');
         $page = Param::get('page_next');
 
