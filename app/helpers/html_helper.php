@@ -39,12 +39,12 @@ function createPaginationLinks($total_rows, $current_page, $max_rows, $extra_par
     return $page_links;
 }
 
-function alternativePaginationLinks($data, $limit = null, $current = null, $adjacents = null)
+function alternativePaginationLinks($data, $items_per_page = null, $current = null, $adjacents = null)
 {
     $result = array();
 
-    if (isset($data, $limit) == true ) {
-        $result = range(1, ceil($data/$limit));
+    if (isset($data, $items_per_page) == true ) {
+        $result = range(1, ceil($data/$items_per_page));
         if (isset($current, $adjacents) === true) {
             if (($adjacents = floor($adjacents / 2) * 2 +1) >= 1) {
                 $result = array_slice($result, max(0, min(count($result) - $adjacents, intval($current) - ceil($adjacents / 2))), $adjacents);

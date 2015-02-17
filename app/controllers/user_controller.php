@@ -5,7 +5,7 @@
 class UserController extends AppController
 {
     const MAX_USER_PER_PAGE = 10;
-
+    const MAX_ADJACENT_PAGE = 8;
     public function register()
     {
         $user = new User();
@@ -131,7 +131,8 @@ class UserController extends AppController
         $pagination = new SimplePagination($current, self::MAX_USER_PER_PAGE);
         $remaining_users = array_slice($users, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_users);
-        $page_links = createPaginationLinks(count($users), $current, $pagination->count);
+        //$page_links = createPaginationLinks(count($users), $current, $pagination->count);
+        $page_links = alternativePaginationLinks(count($users), self::MAX_USER_PER_PAGE, $current, self::MAX_ADJACENT_PAGE);
         $users = array_slice($users, $pagination->start_index, $pagination->count);
         $this->set(get_defined_vars()); 
     }

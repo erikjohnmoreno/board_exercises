@@ -5,7 +5,7 @@
 class CommentController extends AppController
 {
     const MAX_COMMENT_PER_PAGE = 5;
-
+    const MAX_ADJACENT_PAGE = 8;
     public function view()
     {  
         $session_id = $_SESSION['id'];
@@ -22,7 +22,8 @@ class CommentController extends AppController
         $pagination = new SimplePagination($current, self::MAX_COMMENT_PER_PAGE);
         $remaining_comments = array_slice($comments, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_comments);
-        $page_links = createPaginationLinks(count($comments), $current, $pagination->count,'thread_id='.$thread->id);
+        //$page_links = createPaginationLinks(count($comments), $current, $pagination->count,'thread_id='.$thread->id);
+        $page_links = alternativePaginationLinks(count($comments), self::MAX_COMMENT_PER_PAGE, $current, self::MAX_ADJACENT_PAGE);
         $comments = array_slice($comments, $pagination->start_index, $pagination->count);
         $_SESSION['thread_id'] = $thread->id;
         $_SESSION['current_page'] = $current;
@@ -138,7 +139,8 @@ class CommentController extends AppController
         $remaining_comments = array_slice($comment_top, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_comments);
 
-        $page_links = createPaginationLinks(count($comment_top), $current, $pagination->count);
+        //$page_links = createPaginationLinks(count($comment_top), $current, $pagination->count);
+        $page_links = alternativePaginationLinks(count($comment_top), self::MAX_COMMENT_PER_PAGE, $current, self::MAX_ADJACENT_PAGE);
         $comment_top = array_slice($comment_top, $pagination->start_index, $pagination->count);
 
         $this->set(get_defined_vars());

@@ -53,7 +53,13 @@
         <?php if ($pagination->current > 1): ?>
             &nbsp; <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->prev)?>&thread_id=<?php html_encode($thread->id)?>">Previous</a> 
         <?php endif ?>
-        <?php echo $page_links ?>
+        <?php for ($i = 0; $i < count($page_links) ; $i++): ?>
+            <?php if ($page_links[$i] == $pagination->current): ?>
+                <a class="btn btn-default btn-mini disabled" href=""><?php echo $page_links[$i] ?></a>
+            <?php else: ?>
+                <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($page_links[$i]) ?>"><?php echo $page_links[$i] ?></a>
+            <?php endif ?>
+         <?php endfor ?> 
         <?php if (!$pagination->is_last_page): ?>
             <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->next) ?>&thread_id=<?php html_encode($thread->id)?>">Next</a>
         <?php endif ?>

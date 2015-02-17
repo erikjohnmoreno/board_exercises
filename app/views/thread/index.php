@@ -1,16 +1,5 @@
 
 <div style="text-shadow: 0.1em 0.1em 0.03em #000000; color: #FFFFFF; font-size: 55px; margin: 35px; "><strong>All threads</strong></div>
-<!-- <form class="pull-right well span5"> 
-    <a class="" style="font-size: 30px" href="<?php html_encode(url('user/user_profile'))?>"><?php echo $session_firstname ?>'s Profile</a>
-    <a style="color: #000000" class="btn btn-large btn-default" href="<?php html_encode(url('user/logout')) ?>">Logout</a>
-</form> -->
-<!-- <form class="span12">
-    <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/user_thread'))?>"> View My threads</a>
-    <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/top_threads'))?>">View Top Threads</a>
-    <a class="btn btn-large btn-primary" href="<?php html_encode(url('comment/top_comments'))?>">View Top Comments</a>
-    <a class="btn btn-large btn-primary" href="<?php html_encode(url('user/users_list')) ?>">All Users</a>
-    <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/create')) ?>">Create Thread</a>
-</form> -->
 <form  class="span6">
     <ul class="nav ">
         <?php foreach ($threads as $v):  ?>
@@ -35,6 +24,7 @@
     <?php if($pagination->current > 1): ?>
         &nbsp;<a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->prev) ?>"> Previous</a>
     <?php endif ?>
+
     <?php for ($i = 0; $i < count($page_links) ; $i++): ?>
         <?php if ($page_links[$i] == $pagination->current): ?>
             <a class="btn btn-default btn-mini disabled" href=""><?php echo $page_links[$i] ?></a>
