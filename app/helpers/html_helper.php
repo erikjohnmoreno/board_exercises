@@ -24,7 +24,7 @@ function createPaginationLinks($total_rows, $current_page, $max_rows, $extra_par
     if ($total_rows > $max_rows) {
         $total_pages = ceil($total_rows / $max_rows);
     }
-
+    
     $page_counter = SimplePagination::MIN_PAGE_NUM;
     $page_links = "";
 
@@ -37,6 +37,21 @@ function createPaginationLinks($total_rows, $current_page, $max_rows, $extra_par
         $page_counter++;
     }
     return $page_links;
+}
+
+function alternativePaginationLinks($data, $limit = null, $current = null, $adjacents = null)
+{
+    $result = array();
+
+    if (isset($data, $limit) == true ) {
+        $result = range(1, ceil($data/$limit));
+        if (isset($current, $adjacents) === true) {
+            if (($adjacents = floor($adjacents / 2) * 2 +1) >= 1) {
+                $result = array_slice($result, max(0, min(count($result) - $adjacents, intval($current) - ceil($adjacents / 2))), $adjacents);
+            }
+        }
+    }
+    return $result;
 }
 
 function getTimeElapsed($created)
