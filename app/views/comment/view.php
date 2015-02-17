@@ -57,7 +57,7 @@
             <?php if ($page_links[$i] == $pagination->current): ?>
                 <a class="btn btn-default btn-mini disabled" href=""><?php echo $page_links[$i] ?></a>
             <?php else: ?>
-                <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($page_links[$i]) ?>"><?php echo $page_links[$i] ?></a>
+                <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($page_links[$i])?>&thread_id=<?php html_encode($thread->id)?>"><?php echo $page_links[$i] ?></a>
             <?php endif ?>
          <?php endfor ?> 
         <?php if (!$pagination->is_last_page): ?>
