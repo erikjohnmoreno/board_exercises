@@ -56,7 +56,7 @@
     <label>Password</label>
     <input type="password" class="span4" name="password" placeholder="password" value="<?php html_encode(Param::get('password')) ?>" required>
     <label>Retype Password</label>
-    <input type="text" class="span4" name="retypepassword" placeholder="retype password" value="<?php html_encode(Param::get('retypepassword')) ?>" required>
+    <input type="password" class="span4" name="retypepassword" placeholder="retype password" value="<?php html_encode(Param::get('retypepassword')) ?>" required>
     <label>First Name</label>
     <input type="text" class="span4" name="firstname" placeholder="First Name" value="<?php html_encode(Param::get('firstname')) ?>" required>
     <label>Last Name</label>

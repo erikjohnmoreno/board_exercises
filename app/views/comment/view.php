@@ -12,7 +12,7 @@
                     </div>
                     <input type="hidden" name="comment_id" value="<?php html_encode($v->id)?>">
                     <div style="font-size: 12px; word-wrap: break-word">
-                        <b style=" font-size: 14px"><?php echo readable_text($v->body) ?></b><br/> 
+                        <b style=" font-size: 14px"><?php echo smilify($v->body);//echo readable_text($v->body) ?></b><br/> 
                         <i><?php if ($v->likes > 0) echo $v->likes ." user liked this comment"?></i> <br/>&nbsp;&nbsp;&nbsp;
 
 

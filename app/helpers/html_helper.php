@@ -82,3 +82,62 @@ function redirect($url)
     header("Location: {$url}");
 }
 
+function smilify(&$subject)
+{
+    $smilies = array(
+        ':|'  => 'mellow',
+        ':-|' => 'mellow',
+        ':-o' => 'ohmy',
+        ':-O' => 'ohmy',
+        ':o'  => 'ohmy',
+        ':O'  => 'ohmy',
+        ';)'  => 'wink',
+        ';-)' => 'wink',
+        ':p'  => 'tongue',
+        ':-p' => 'tongue',
+        ':P'  => 'tongue',
+        ':-P' => 'tongue',
+        ':D'  => 'biggrin',
+        ':-D' => 'biggrin',
+        '8)'  => 'cool',
+        '8-)' => 'cool',
+        ':)'  => 'smile',
+        ':-)' => 'smile',
+        ':('  => 'sad',
+        ':-(' => 'sad',
+        '(angry)' => 'angry',
+        '(relax)' => 'relax',
+        '(ezra)' => 'ezra',
+        '(usi)' => 'usi',
+        '(cute)' => 'cute',
+        '(marvs)' => 'marvs',
+    );
+
+    $sizes = array(
+        'biggrin' => 50,
+        'cool' => 50,
+        'haha' => 50,
+        'mellow' => 50,
+        'ohmy' => 50,
+        'sad' => 50,
+        'smile' => 50,
+        'tongue' => 50,
+        'wink' => 50,
+        'angry' => 50,
+        'relax' => 100,
+        'ezra' => 100,
+        'usi' => 100,
+        'cute' => 100,
+        'marvs' =>100,
+    );
+
+    $replace = array();
+    foreach ($smilies as $smiley => $imgName)
+    {
+
+        $size = $sizes[$imgName];
+        array_push($replace, "<img src='/bootstrap/img/".$imgName.".gif' alt='".$smiley."' width='".$size."' height='".$size."'/>");
+        
+    }
+    return $subject = str_replace(array_keys($smilies), $replace, $subject);
+}

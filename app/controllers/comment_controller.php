@@ -48,7 +48,7 @@ class CommentController extends AppController
                 $comment->body = trim(Param::get('body'));
                 try {
                     $comment->write($comment, $thread->id, $_SESSION['id']);
-                    redirect("/comment/view?page={$_SESSION['last_page']}&thread_id={$_SESSION['thread_id']}");
+                    redirect("/comment/view?page=1&thread_id={$_SESSION['thread_id']}");
                 } catch (ValidationException $e) {
                     $page = 'write';
                 }    

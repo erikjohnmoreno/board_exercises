@@ -37,7 +37,7 @@
         $comments = array();
         $db = DB::conn();
 
-        $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ?',array($thread_id));
+        $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ? ORDER BY id DESC',array($thread_id));
 
         foreach ($rows as $row) {
             $comments[] = new self($row);
