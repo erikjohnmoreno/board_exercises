@@ -1,33 +1,39 @@
-<h1 style="font-size: 55px">All threads</h1>
-<ul class="nav">
-    <a class="offset8" style="font-size: 50px" href=""><?php echo $_SESSION['username']?></a>
-    <?php foreach ($threads as $v):  ?>
-        <li class="well">
-            <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><b><?php html_encode($v->title)?></b></a>                   
-            &nbsp;&nbsp;<i><?php getTimeElapsed($v->created) ?></i>
-            <?php if ($v->userid == $session_id): ?>
-                <a class="offset9" href="<?php html_encode(url('thread/delete', array('thread_id' =>$v->id)))?>">delete this thread</a>
-            <?php endif ?>
-            
-        </li>
-    <?php endforeach ?>
-</ul>
-    <div class="pagination">
-        
-        <?php if($pagination->current > 1): ?>
-            &nbsp;<a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->prev) ?>"> Previous</a>
+
+<div style="text-shadow: 0.1em 0.1em 0.03em #000000; color: #FFFFFF; font-size: 55px; margin: 35px; "><strong>All threads</strong></div>
+<form  class="span6">
+    <ul class="nav ">
+        <?php foreach ($threads as $v):  ?>
+            <?php foreach ($users as $key => $value): ?>
+                <?php if ($value->id == $v->userid): ?>
+                    <li style="box-shadow: black 0.3em 0.3em 0.3em" class="well">
+                    <div class="span5">
+                        <a href="<?php html_encode(url('comment/view',array('thread_id' => $v->id))) ?>"><b><?php html_encode($v->title)?></b></a>
+                        <br/><i><a href="<?php html_encode(url('user/others_profile', array('userid' => $v->userid))) ?>"><i class="icon-user"></i><?php echo "$value->firstname "?></a> <?php getTimeElapsed($v->created) ?></i>
+                    </div>
+                        <?php if ($v->userid == $session_id): ?>
+                            <a class="" href="<?php html_encode(url('thread/delete', array('thread_id' =>$v->id)))?>" onclick="return confirm('Are you sure you want to delete this thread?')" ><i class="icon-trash"></i></a>
+                        <?php endif ?>
+                    </li>
+                    <?php endif ?>
+            <?php endforeach ?>
+        <?php endforeach ?>
+    </ul>
+</form>
+
+<div class="pagination span12">
+    <?php if($pagination->current > 1): ?>
+        &nbsp;<a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->prev) ?>"> Previous</a>
+    <?php endif ?>
+
+    <?php for ($i = 0; $i < count($page_links) ; $i++): ?>
+        <?php if ($page_links[$i] == $pagination->current): ?>
+            <a class="btn btn-default btn-mini disabled" href=""><?php echo $page_links[$i] ?></a>
+        <?php else: ?>
+            <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($page_links[$i]) ?>"><?php echo $page_links[$i] ?></a>
         <?php endif ?>
+    <?php endfor ?> 
 
-        <?php echo $page_links ?>
-
-        <?php if(!$pagination->is_last_page): ?>
-            <a class="btn btn-primary btn-mini" href="?page=<?php  html_encode($pagination->next)?>">Next</a>            
-        <?php endif ?>    
-    </div>
-
-<br/><br/><br/>
-    <a class="btn btn-large btn-primary" href="<?php html_encode(url('thread/user_thread'))?>"> View My threads</a>
-    <a class="btn btn-large btn-primary" href="<?php html_encode(url('user/update_info'))?>">Update Information</a>
-    <a class="btn btn-large btn-default" href="<?php html_encode(url('user/logout')) ?>">Logout</a>
-
-
+    <?php if(!$pagination->is_last_page): ?>
+        <a class="btn btn-primary btn-mini" href="?page=<?php html_encode($pagination->next)?>">Next</a>
+    <?php endif ?>
+</div>

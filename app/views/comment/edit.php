@@ -10,15 +10,12 @@
     <?php endif ?>
 </div>
 <?php endif ?>
-
-<form class="well" method="post" action="">
-<?php foreach ($comments as $key):?>	
+<form class="well span6" method="post" action="">
     <label>Comment</label>
-    <textarea name="body"><?php echo $key->body; html_encode(Param::get('body')) ?></textarea>
+    <textarea class="span6" style="resize:none" name="body"><?php echo $comments['body']; html_encode(Param::get('body')) ?></textarea>
     <br/>
     <input type="hidden" name="page_next" value="edit_end">
     <button type="submit" name="edit" class="btn btn-primary">Done editing</button>
-    <a href="<?php html_encode(url('comment/view',array('thread_id' => $key->thread_id)))?>"> Cancel</a>
-<?php endforeach ?>
+    <a href="<?php html_encode(url('comment/view', array('thread_id' => $comments['thread_id'])))?>"> Cancel</a>
 </form>
 

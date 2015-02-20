@@ -24,7 +24,7 @@ function createPaginationLinks($total_rows, $current_page, $max_rows, $extra_par
     if ($total_rows > $max_rows) {
         $total_pages = ceil($total_rows / $max_rows);
     }
-
+    
     $page_counter = SimplePagination::MIN_PAGE_NUM;
     $page_links = "";
 
@@ -37,6 +37,21 @@ function createPaginationLinks($total_rows, $current_page, $max_rows, $extra_par
         $page_counter++;
     }
     return $page_links;
+}
+
+function alternativePaginationLinks($data, $items_per_page = null, $current = null, $adjacents = null)
+{
+    $result = array();
+
+    if (isset($data, $items_per_page) == true ) {
+        $result = range(1, ceil($data/$items_per_page));
+        if (isset($current, $adjacents) === true) {
+            if (($adjacents = floor($adjacents / 2) * 2 +1) >= 1) {
+                $result = array_slice($result, max(0, min(count($result) - $adjacents, intval($current) - ceil($adjacents / 2))), $adjacents);
+            }
+        }
+    }
+    return $result;
 }
 
 function getTimeElapsed($created)
@@ -54,7 +69,7 @@ function getTimeElapsed($created)
     } elseif ($time_elapsed >= SECONDS_PER_HOUR && $time_elapsed < SECONDS_PER_DAY) {
         echo $date_format->format("%h hours ago");
     } elseif ($time_elapsed >= SECONDS_PER_DAY && $time_elapsed < SECONDS_PER_MONTH) {
-        echo $date_format->format("%d days ago");
+        echo $date_format->format("%d days ago");    
     } elseif ($time_elapsed >= SECONDS_PER_MONTH && $time_elapse < SECONDS_PER_YEAR) {
         echo $date_format->format("%m months ago");
     } else {

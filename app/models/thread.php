@@ -15,13 +15,15 @@ class Thread extends AppModel
                     ),
                 );
 
-    //function to get all threads of user currently login 
+    /**
+    * function to get all threads of user currently login
+    * @param $session_id
+    */
     public static function getAll($session_id)
     {
         $threads = array();
-
         $db = DB::conn();
-
+        
         $rows = $db->rows('SELECT * FROM thread 
                            WHERE userid = ?', array($session_id));
 
@@ -31,13 +33,15 @@ class Thread extends AppModel
         return $threads;
     }
 
-    //function to get all threads from database
+    /**
+    *function to get all threads from database
+    */
     public static function getAllThreads()
     {
         $threads = array();
         $db = DB::conn();
 
-        $rows = $db->rows('SELECT * FROM thread');
+        $rows = $db->rows('SELECT * FROM thread ORDER BY created DESC');
 
         foreach ($rows as $row) {
             $threads[] = new self($row);
@@ -45,6 +49,10 @@ class Thread extends AppModel
         return $threads;
     }
 
+    /**
+    * get thread function
+    * @param $id
+    */
     public static function get($id)
     {
         $db = DB::conn();
@@ -56,11 +64,14 @@ class Thread extends AppModel
             throw new RecordNotFoundException('no record found');
         }
 
-        return new self($row);        
+        return new self($row);
     }
 
-        
-    //inserting a comment to database;
+    /**
+    * inserting a comment to database
+    * @param $comment
+    * @param $session_id
+    */
     public function create(Comment $comment, $session_id)
     {
         $instant_comment = new Comment();
@@ -74,6 +85,7 @@ class Thread extends AppModel
             $db = DB::conn();
             $db->begin();
             $db->insert('thread', array('title' => $this->title,
+                                        'created' => date('Y-m-d H:i:s'),
                                         'userid' => $session_id));
 
             $this->id = $db->lastInsertId();
@@ -85,18 +97,28 @@ class Thread extends AppModel
         }           
     }
 
-    public function delete($thread_id)
+    /**
+    * delete thread function
+    * @param $thread_id
+    */
+    public function deleteThread($thread_id)
     {
-        $comment = new Comment();
         try {
             $db = DB::conn();
             $db->begin();
             $db->query('DELETE FROM thread WHERE id = ?', array($thread_id));
-            $comment->delete($this->comment_id);
+            $db->query('DELETE FROM liked WHERE thread_id = ?', array($thread_id));
             $db->commit();
         } catch (Exception $e) {
             $db->rollback();
         }
     }
 
+    /**
+    * get comment count from comment model
+    */
+    public function getCommentCount()
+    {
+        return Comment::getByThread();
+    }
 }
