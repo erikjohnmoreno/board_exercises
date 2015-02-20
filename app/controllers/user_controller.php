@@ -38,7 +38,7 @@ class UserController extends AppController
     public function login()
     {
         if (isset($_SESSION['id'])) {
-            redirect('/thread/index');
+            redirect(url('thread/index'));
         } else {
             $user = new User();
             $page = Param::get('page_next', 'login');
@@ -55,7 +55,7 @@ class UserController extends AppController
                         $_SESSION['username'] = $account['username'];
                         $_SESSION['password'] = $account['password'];
                         $_SESSION['firstname'] = $account['firstname'];
-                        redirect('/thread/index');
+                        redirect(url('thread/index'));
                     } catch (RecordNotFoundException $e) {
                         $page = 'login';
                     }
@@ -73,7 +73,7 @@ class UserController extends AppController
     public function logout()
     {
         session_destroy();
-        header('Location: /user/login');
+        redirect(url('user/login'));
     }
 
     public function update_info()
@@ -90,7 +90,7 @@ class UserController extends AppController
                 $user->old_password = Param::get('old_password');
                 try {
                     $user->updateInfo($_SESSION['id']);
-                    redirect('/user/user_profile');
+                    redirect(url('user/user_profile'));
                 } catch (ValidationException $e) {
                     $page = 'update_info';
                 }
@@ -131,7 +131,6 @@ class UserController extends AppController
         $pagination = new SimplePagination($current, self::MAX_USER_PER_PAGE);
         $remaining_users = array_slice($users, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_users);
-        //$page_links = createPaginationLinks(count($users), $current, $pagination->count);
         $page_links = alternativePaginationLinks(count($users), self::MAX_USER_PER_PAGE, $current, self::MAX_ADJACENT_PAGE);
         $users = array_slice($users, $pagination->start_index, $pagination->count);
         $this->set(get_defined_vars()); 

@@ -19,7 +19,6 @@ class ThreadController extends AppController
         $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);
         $remaining_threads = array_slice($threads, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_threads);
-        //$page_links = createPaginationLinks(count($threads), $current, $pagination->count);
         $page_links = alternativePaginationLinks(count($threads), self::MAX_THREADS_PER_PAGE, $current, self::MAX_ADJACENT_PAGE);
         $threads = array_slice($threads, $pagination->start_index, $pagination->count);
 
@@ -36,7 +35,6 @@ class ThreadController extends AppController
         $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);
         $remaining_threads = array_slice($threads, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_threads);
-        //$page_links = createPaginationLinks(count($threads), $current, $pagination->count);
         $page_links = alternativePaginationLinks(count($threads), self::MAX_THREADS_PER_PAGE, $current, self::MAX_ADJACENT_PAGE);
         $threads = array_slice($threads, $pagination->start_index, $pagination->count);
 
@@ -57,7 +55,7 @@ class ThreadController extends AppController
                 $comment->body = trim(Param::get('body'));
                 try {
                     $thread->create($comment, $_SESSION['id']);
-                    redirect('/thread/index');
+                    redirect(url('thread/index'));
                 } catch (ValidationException $e) {
                     $page = 'create';
                 }
@@ -81,7 +79,7 @@ class ThreadController extends AppController
 
         $comment->deleteByThread($thread_id);
         $thread->deleteThread($thread_id);
-        redirect('/thread/index');
+        redirect(url('thread/index'));
 
         $this->set(get_defined_vars());
         $this->render($page);
@@ -97,7 +95,6 @@ class ThreadController extends AppController
         $pagination = new SimplePagination($current, self::MAX_THREADS_PER_PAGE);
         $remaining_threads = array_slice($threads, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_threads);
-        //$page_links = createPaginationLinks(count($threads), $current, $pagination->count);
         $page_links = alternativePaginationLinks(count($threads), self::MAX_THREADS_PER_PAGE, $current, self::MAX_ADJACENT_PAGE);
         $threads = array_slice($threads, $pagination->start_index, $pagination->count);
         $this->set(get_defined_vars());

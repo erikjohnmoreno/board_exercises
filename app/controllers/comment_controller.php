@@ -11,7 +11,7 @@ class CommentController extends AppController
         $session_id = $_SESSION['id'];
         $thread_id = Param::get('thread_id');
         if (!$thread_id) {
-            redirect("/thread/index");
+            redirect(url('thread/index'));
         }
         $thread = Thread::get($thread_id);
         $comment = new Comment();       
@@ -22,7 +22,6 @@ class CommentController extends AppController
         $pagination = new SimplePagination($current, self::MAX_COMMENT_PER_PAGE);
         $remaining_comments = array_slice($comments, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_comments);
-        //$page_links = createPaginationLinks(count($comments), $current, $pagination->count,'thread_id='.$thread->id);
         $page_links = alternativePaginationLinks(count($comments), self::MAX_COMMENT_PER_PAGE, $current, self::MAX_ADJACENT_PAGE);
         $comments = array_slice($comments, $pagination->start_index, $pagination->count);
         $_SESSION['thread_id'] = $thread->id;
@@ -35,7 +34,7 @@ class CommentController extends AppController
     {
         $thread_id = Param::get('thread_id');
         if (!$thread_id) {
-            redirect("/thread/index");
+            redirect(url('thread/index'));
         }
         $thread = Thread::get($thread_id);
         $comment = new Comment();
@@ -48,7 +47,7 @@ class CommentController extends AppController
                 $comment->body = trim(Param::get('body'));
                 try {
                     $comment->write($comment, $thread->id, $_SESSION['id']);
-                    redirect("/comment/view?page={$_SESSION['last_page']}&thread_id={$_SESSION['thread_id']}");
+                    redirect(url('comment/view', array('page' => 1,'thread_id' => $_SESSION['thread_id'])));
                 } catch (ValidationException $e) {
                     $page = 'write';
                 }    
@@ -76,7 +75,7 @@ class CommentController extends AppController
                 $comment->body = trim(Param::get('body'));
                 try {
                     $comment->edit();
-                    redirect("/comment/view?thread_id={$_SESSION['thread_id']}");
+                    redirect(url('comment/view', array('thread_id' => $_SESSION['thread_id'])));
                 } catch (ValidationException $e) {
                     $page = 'edit';
                 }
@@ -94,11 +93,17 @@ class CommentController extends AppController
     {
         $comment = new Comment();
         $comment->comment_id = Param::get('comment_id');
-        $page = Param::get('page_next');
-        $comment->unlike($_SESSION['id']);
-        $comment->delete($comment->comment_id);
-        redirect("/comment/view?thread_id={$_SESSION['thread_id']}");
+        try {
+            $comments = Comment::get($comment->comment_id);
+            if ($comments['userid'] == $_SESSION['id']) {
+                $comment->unlike($_SESSION['id']);
+                $comment->delete($comment->comment_id);
+            }
+        } catch (Exception $e) {
+                throw new NotFoundException("comment_id not found");
+        }
 
+        redirect(url('comment/view', array('thread_id' => $_SESSION['thread_id'])));
         $this->set(get_defined_vars()); 
         $this->render($page);
 
@@ -111,7 +116,7 @@ class CommentController extends AppController
         $comment->thread_id = Param::get('thread_id');
         $comment->like($_SESSION['id']);
 
-        redirect("/comment/view?page={$_SESSION['current_page']}&thread_id={$_SESSION['thread_id']}");
+        redirect(url('comment/view', array('page' => $_SESSION['current_page'],'thread_id' => $_SESSION['thread_id'])));
         $this->set(get_defined_vars());
         
     }
@@ -121,7 +126,7 @@ class CommentController extends AppController
         $comment = new Comment();
         $comment->comment_id = Param::get('comment_id');
         $comment->unlike($_SESSION['id']);
-        redirect("/comment/view?page={$_SESSION['current_page']}&thread_id={$_SESSION['thread_id']}");
+        redirect(url('comment/view', array('page' => $_SESSION['current_page'],'thread_id' => $_SESSION['thread_id'])));
         $this->set(get_defined_vars());
     }
 
@@ -139,7 +144,6 @@ class CommentController extends AppController
         $remaining_comments = array_slice($comment_top, $pagination->start_index + SimplePagination::MIN_PAGE_NUM);
         $pagination->checkLastPage($remaining_comments);
 
-        //$page_links = createPaginationLinks(count($comment_top), $current, $pagination->count);
         $page_links = alternativePaginationLinks(count($comment_top), self::MAX_COMMENT_PER_PAGE, $current, self::MAX_ADJACENT_PAGE);
         $comment_top = array_slice($comment_top, $pagination->start_index, $pagination->count);
 

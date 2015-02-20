@@ -37,7 +37,7 @@
         $comments = array();
         $db = DB::conn();
 
-        $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ?',array($thread_id));
+        $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ? ORDER BY id DESC',array($thread_id));
 
         foreach ($rows as $row) {
             $comments[] = new self($row);
@@ -50,19 +50,19 @@
     * get comment function
     * @param $comment_id
     */
-    public function get($comment_id)
+    public static function get($comment_id)
     {
         $comments = array();
         $db = DB::conn();
 
-        $rows = $db->rows('SELECT * FROM comment 
+        $row = $db->row('SELECT * FROM comment 
                             WHERE id = ?', array($comment_id));
 
-        foreach ($rows as $row) {
-             $comments[] = new self($row);
-        }
+        // foreach ($rows as $row) {
+        //      $comments[] = new self($row);
+        // }
 
-        return $comments;
+        return $row;
     }
 
     /**
